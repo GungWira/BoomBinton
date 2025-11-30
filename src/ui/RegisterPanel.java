@@ -8,6 +8,14 @@ import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import javax.swing.JTextField;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+
+import config.KoneksiDatabase;
+
 /**
  *
  * @author gungwira
@@ -187,7 +195,38 @@ public class RegisterPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_termsCheckboxActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        // TODO add your handling code here:
+        String username = usernameInput.getText();
+        String password = passwordInput.getText();
+        String confirmPassword = passwordConfirmInput.getText();
+        
+        if(username.equals("") || password.equals("") || confirmPassword.equals("") || username.equals("Masukkan username...") || password.equals("Masukkan password...") || confirmPassword.equals("Konfirmasi Password...")){
+            System.out.println("Pastikan semua data terisi");
+            return;
+        }
+        
+        if(!password.equals(confirmPassword)){
+            System.out.println("Password dan konfirmasi password tidak sama");
+            return;
+        }
+        
+        try{
+            Connection c = KoneksiDatabase.getKoneksi();
+            String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            PreparedStatement p = c.prepareStatement(sql);
+            p.setString(1, username);
+            p.setString(2, password);
+            p.executeUpdate();
+            p.close();
+            
+            usernameInput.setText("");
+            passwordInput.setText("");
+            passwordConfirmInput.setText("");
+            
+            
+        }catch(SQLException e){
+            System.out.println("Terjadi kesalahan : " + e);
+        }
+        
     }//GEN-LAST:event_registerButtonActionPerformed
 
 
