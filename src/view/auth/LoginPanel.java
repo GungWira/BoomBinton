@@ -2,18 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui;
+package view.auth;
 
-import config.KoneksiDatabase;
+import controller.AuthController;
+import controller.AuthController.LoginRes;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import javax.swing.JTextField;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
 
 /**
  *
@@ -22,12 +17,14 @@ import java.sql.Connection;
 public class LoginPanel extends javax.swing.JPanel {
 
     private MainFrame mainFrame;
+    private AuthController authController;
 
     /**
      * Creates new form LoginPanel
      */
     public LoginPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
+        this.authController = new AuthController();
 
         initComponents();
 
@@ -176,40 +173,16 @@ public class LoginPanel extends javax.swing.JPanel {
         String username = usernameInput.getText();
         String password = passwordInput.getText();
 
-        if (username.equals("") || username.equals("Masukkan username...") || password.equals("") || password.equals("Masukkan password...")) {
-            System.out.println("Pastikan setiap kolom terisi");
-            return;
-        }
+        LoginRes res = authController.login(username, password);
 
-        try {
-            Connection c = KoneksiDatabase.getKoneksi();
-            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-            PreparedStatement p = c.prepareStatement(sql);
-            p.setString(1, username);
-            p.setString(2, password);
-            ResultSet r = p.executeQuery();
-            
-            if (r.next()) {
-            // User ditemukan
-            int id = r.getInt("id");
-            String uname = r.getString("username");
-
-            System.out.println("LOGIN BERHASIL");
-                    
+        if (res.isSuccess()) {
             usernameInput.setText("");
             passwordInput.setText("");
-
-            } else {
-                // User tidak ditemukan
-                System.out.println("Login gagal! Username atau password salah.");
-            }
-
-            r.close();
-            p.close();           
-
-        } catch (SQLException e) {
-            System.out.println("Terjadi kesalahan : " + e);
+            System.out.println("Login berhasil");
+        } else {
+            System.out.println("Login gagal");
         }
+
     }//GEN-LAST:event_loginButtonActionPerformed
 
 

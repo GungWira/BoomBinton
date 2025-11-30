@@ -2,22 +2,61 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui;
+package view.auth;
+
+import java.awt.CardLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
  * @author gungwira
  */
-public class Dashboard extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
 
-    /**
-     * Creates new form Dashboard
-     */
-    public Dashboard() {
-        initComponents();
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    private LoginPanel loginPanel;
+    private RegisterPanel registerPanel;
+    
+    public MainFrame() {
+        // Setup frame
+        setTitle("Sistem Login & Register");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(1280, 754);
+        setLocationRelativeTo(null);
+        
+        // Setup CardLayout
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        
+        // Buat panels
+        loginPanel = new LoginPanel(this);
+        registerPanel = new RegisterPanel(this);
+        
+        // Tambahkan panels ke CardLayout dengan nama
+        mainPanel.add(loginPanel, "login");
+        mainPanel.add(registerPanel, "register");
+        
+        // Tambahkan mainPanel ke frame
+        add(mainPanel);
+        
+        // Tampilkan login dulu
+        showLogin();
     }
+    
+    public void showLogin() {
+        cardLayout.show(mainPanel, "login");
+    }
+    
+    public void showRegister() {
+        cardLayout.show(mainPanel, "register");
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,7 +105,7 @@ public class Dashboard extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Dashboard().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

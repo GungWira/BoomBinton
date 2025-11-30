@@ -2,19 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui;
+package view.auth;
 
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import javax.swing.JTextField;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.Connection;
-
-import config.KoneksiDatabase;
+import controller.AuthController;
+import controller.AuthController.RegisterRes;
 
 /**
  *
@@ -23,12 +17,14 @@ import config.KoneksiDatabase;
 public class RegisterPanel extends javax.swing.JPanel {
 
     private MainFrame mainFrame;
+    private AuthController authController;
 
     /**
      * Creates new form RegisterPanel
      */
     public RegisterPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
+        this.authController = new AuthController();
 
         initComponents();
 
@@ -199,32 +195,14 @@ public class RegisterPanel extends javax.swing.JPanel {
         String password = passwordInput.getText();
         String confirmPassword = passwordConfirmInput.getText();
         
-        if(username.equals("") || password.equals("") || confirmPassword.equals("") || username.equals("Masukkan username...") || password.equals("Masukkan password...") || confirmPassword.equals("Konfirmasi Password...")){
-            System.out.println("Pastikan semua data terisi");
-            return;
-        }
+        RegisterRes res = authController.register(username, password, confirmPassword);
         
-        if(!password.equals(confirmPassword)){
-            System.out.println("Password dan konfirmasi password tidak sama");
-            return;
-        }
-        
-        try{
-            Connection c = KoneksiDatabase.getKoneksi();
-            String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-            PreparedStatement p = c.prepareStatement(sql);
-            p.setString(1, username);
-            p.setString(2, password);
-            p.executeUpdate();
-            p.close();
-            
+        if (res.isSuccess()) {
             usernameInput.setText("");
             passwordInput.setText("");
-            passwordConfirmInput.setText("");
-            
-            
-        }catch(SQLException e){
-            System.out.println("Terjadi kesalahan : " + e);
+            System.out.println("Login berhasil");
+        } else {
+            System.out.println("Login gagal");
         }
         
     }//GEN-LAST:event_registerButtonActionPerformed
