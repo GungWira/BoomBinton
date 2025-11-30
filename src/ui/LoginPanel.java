@@ -1,39 +1,56 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package ui;
 
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
 import javax.swing.JTextField;
 
 /**
  *
  * @author gungwira
  */
-public class LoginForm extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginForm.class.getName());
+public class LoginPanel extends javax.swing.JPanel {
+
+    private MainFrame mainFrame;
 
     /**
-     * Creates new form LoginForm
+     * Creates new form LoginPanel
      */
-    public LoginForm() {
+    public LoginPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+
         initComponents();
-        
-        setResizable(false);
-        setLocationRelativeTo(null);
+
         setSize(1280, 754);
-        
+
         // STYLING USERNAME & PASSWORD INPUT
         styleInput(usernameInput, "Masukkan username...");
         styleInput(passwordInput, "Masukkan password...");
-        
-        // CEGAH AUTO FOCUS
-        jPanel1.requestFocusInWindow();
-        
+
         // CEGAH WARNA BUTTON MENJADI TRANSPARAN
         loginButton.setOpaque(true);
-        
+
+        // KETIKA OPSI BUAT AKUN DITEKAN
+        createAccountLink.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        createAccountLink.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mainFrame.showRegister();
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                createAccountLink.setForeground(new java.awt.Color(0, 102, 51));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                createAccountLink.setForeground(new java.awt.Color(51, 51, 51));
+            }
+        });
     }
 
     /**
@@ -45,45 +62,37 @@ public class LoginForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        usernameLabel = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        image = new javax.swing.JLabel();
         description = new javax.swing.JLabel();
+        usernameLabel = new javax.swing.JLabel();
         usernameInput = new javax.swing.JTextField();
-        passwordInput = new javax.swing.JTextField();
         passwordLabel = new javax.swing.JLabel();
+        passwordInput = new javax.swing.JTextField();
         termsCheckbox = new javax.swing.JCheckBox();
         loginButton = new javax.swing.JButton();
         createAccountLink = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1280, 720));
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        usernameLabel.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
-        usernameLabel.setLabelFor(usernameInput);
-        usernameLabel.setText("Username");
-        usernameLabel.setToolTipText("");
-        jPanel1.add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
+        setSize(new java.awt.Dimension(1280, 720));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         title.setFont(new java.awt.Font("Heiti SC", 1, 36)); // NOI18N
         title.setText("Selamat Datang");
         title.setToolTipText("");
-        jPanel1.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
-
-        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/login_img.png"))); // NOI18N
-        image.setIconTextGap(0);
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 640, 720));
+        add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, -1));
 
         description.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
         description.setForeground(new java.awt.Color(102, 102, 102));
         description.setText("Silahkan login terlebih dahulu untuk masuk ke sistem");
         description.setToolTipText("");
-        jPanel1.add(description, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        add(description, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+
+        usernameLabel.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
+        usernameLabel.setText("Username");
+        usernameLabel.setToolTipText("");
+        add(usernameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, -1, -1));
 
         usernameInput.setFont(new java.awt.Font("Heiti SC", 0, 16)); // NOI18N
         usernameInput.setForeground(new java.awt.Color(102, 102, 102));
@@ -94,7 +103,12 @@ public class LoginForm extends javax.swing.JFrame {
                 usernameInputActionPerformed(evt);
             }
         });
-        jPanel1.add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 400, 40));
+        add(usernameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 400, 40));
+
+        passwordLabel.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
+        passwordLabel.setText("Password");
+        passwordLabel.setToolTipText("");
+        add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
         passwordInput.setFont(new java.awt.Font("Heiti SC", 0, 16)); // NOI18N
         passwordInput.setForeground(new java.awt.Color(102, 102, 102));
@@ -105,13 +119,7 @@ public class LoginForm extends javax.swing.JFrame {
                 passwordInputActionPerformed(evt);
             }
         });
-        jPanel1.add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 400, 40));
-
-        passwordLabel.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
-        passwordLabel.setLabelFor(passwordInput);
-        passwordLabel.setText("Password");
-        passwordLabel.setToolTipText("");
-        jPanel1.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
+        add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 340, 400, 40));
 
         termsCheckbox.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         termsCheckbox.setForeground(new java.awt.Color(51, 51, 51));
@@ -121,38 +129,28 @@ public class LoginForm extends javax.swing.JFrame {
                 termsCheckboxActionPerformed(evt);
             }
         });
-        jPanel1.add(termsCheckbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 400, -1));
+        add(termsCheckbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 410, 400, -1));
 
         loginButton.setBackground(new java.awt.Color(0, 51, 51));
         loginButton.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Login Sekarang");
         loginButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jPanel1.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 400, 50));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
+        add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 400, 50));
 
         createAccountLink.setFont(new java.awt.Font("Heiti SC", 0, 16)); // NOI18N
         createAccountLink.setForeground(new java.awt.Color(51, 51, 51));
         createAccountLink.setText("<html>Belum punya akun? <span style=\"text-decoration: underline;\">Buat akun sekarang</span></html>");
-        jPanel1.add(createAccountLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, -1, -1));
+        add(createAccountLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 560, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(166, 166, 166))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        pack();
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/login_img.png"))); // NOI18N
+        image.setIconTextGap(0);
+        add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 640, 720));
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
@@ -167,36 +165,15 @@ public class LoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_termsCheckboxActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            logger.log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-        //</editor-fold>
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginButtonActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new LoginForm().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel createAccountLink;
     private javax.swing.JLabel description;
     private javax.swing.JLabel image;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginButton;
     private javax.swing.JTextField passwordInput;
     private javax.swing.JLabel passwordLabel;
@@ -205,7 +182,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JTextField usernameInput;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
-    
+
     private void addPlaceholder(JTextField field, String placeholder) {
         field.setForeground(new java.awt.Color(150, 150, 150));
         field.setText(placeholder);
@@ -228,17 +205,15 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void styleInput(JTextField field, String placeholder) {
         addPlaceholder(field, placeholder);
 
         field.setBorder(
-            javax.swing.BorderFactory.createCompoundBorder(
-                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200,200,200), 1, true),
-                javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15) 
-            )
+                javax.swing.BorderFactory.createCompoundBorder(
+                        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 200, 200), 1, true),
+                        javax.swing.BorderFactory.createEmptyBorder(5, 15, 5, 15)
+                )
         );
     }
-
-
 }
