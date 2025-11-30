@@ -4,9 +4,16 @@
  */
 package ui;
 
+import config.KoneksiDatabase;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import javax.swing.JTextField;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
 
 /**
  *
@@ -166,7 +173,43 @@ public class LoginPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_termsCheckboxActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+        String username = usernameInput.getText();
+        String password = passwordInput.getText();
+
+        if (username.equals("") || username.equals("Masukkan username...") || password.equals("") || password.equals("Masukkan password...")) {
+            System.out.println("Pastikan setiap kolom terisi");
+            return;
+        }
+
+        try {
+            Connection c = KoneksiDatabase.getKoneksi();
+            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            PreparedStatement p = c.prepareStatement(sql);
+            p.setString(1, username);
+            p.setString(2, password);
+            ResultSet r = p.executeQuery();
+            
+            if (r.next()) {
+            // User ditemukan
+            int id = r.getInt("id");
+            String uname = r.getString("username");
+
+            System.out.println("LOGIN BERHASIL");
+                    
+            usernameInput.setText("");
+            passwordInput.setText("");
+
+            } else {
+                // User tidak ditemukan
+                System.out.println("Login gagal! Username atau password salah.");
+            }
+
+            r.close();
+            p.close();           
+
+        } catch (SQLException e) {
+            System.out.println("Terjadi kesalahan : " + e);
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
 
