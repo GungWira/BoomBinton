@@ -179,6 +179,13 @@ public class LoginPanel extends javax.swing.JPanel {
             usernameInput.setText("");
             passwordInput.setText("");
             System.out.println("Login berhasil");
+
+            javax.swing.SwingUtilities.getWindowAncestor(this).dispose();
+            java.awt.EventQueue.invokeLater(() -> {
+                view.dashboard.DashboardFrame dashboard = new view.dashboard.DashboardFrame();
+                dashboard.setVisible(true);
+
+            });
         } else {
             System.out.println("Login gagal");
         }

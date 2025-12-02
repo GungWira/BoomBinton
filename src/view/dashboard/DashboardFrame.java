@@ -2,26 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view.auth;
+package view.dashboard;
 
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import view.auth.LoginPanel;
 
 /**
  *
  * @author gungwira
  */
-public class MainFrame extends javax.swing.JFrame {
+public class DashboardFrame extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DashboardFrame.class.getName());
 
     private CardLayout cardLayout;
     private JPanel mainPanel;
-    private LoginPanel loginPanel;
-    private RegisterPanel registerPanel;
-    
-    public MainFrame() {
+    private CourtPanel courtPanel;
+    /**
+     * Creates new form DashboardFrame
+     */
+    public DashboardFrame() {        
         // Setup frame
         setTitle("BoomBinton");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,26 +36,20 @@ public class MainFrame extends javax.swing.JFrame {
         mainPanel = new JPanel(cardLayout);
         
         // Buat panels
-        loginPanel = new LoginPanel(this);
-        registerPanel = new RegisterPanel(this);
+        courtPanel = new CourtPanel(this);
         
         // Tambahkan panels ke CardLayout dengan nama
-        mainPanel.add(loginPanel, "login");
-        mainPanel.add(registerPanel, "register");
+        mainPanel.add(courtPanel, "court");
         
         // Tambahkan mainPanel ke frame
         add(mainPanel);
         
-        // Tampilkan login dulu
-        showLogin();
+        // Tampilkan court panel dulu
+        showCourtPanel();
     }
     
-    public void showLogin() {
-        cardLayout.show(mainPanel, "login");
-    }
-    
-    public void showRegister() {
-        cardLayout.show(mainPanel, "register");
+    public void showCourtPanel(){
+        cardLayout.show(mainPanel, "court");
     }
     
     
@@ -68,16 +64,17 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 1280, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 720, Short.MAX_VALUE)
         );
 
         pack();
@@ -105,7 +102,7 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new DashboardFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
