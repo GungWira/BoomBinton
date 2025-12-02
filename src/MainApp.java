@@ -16,7 +16,7 @@ import view.dashboard.DashboardFrame;
 public class MainApp {
     public static void main(String[] args) {
         // buka halaman main frame
-//        new MainFrame().setVisible(true);
-          new DashboardFrame().setVisible(true);
+        new MainFrame().setVisible(true);
+//          new DashboardFrame().setVisible(true);
     }
 }
