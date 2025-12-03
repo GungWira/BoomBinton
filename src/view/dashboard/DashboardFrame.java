@@ -7,7 +7,6 @@ package view.dashboard;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import view.auth.LoginPanel;
 
 /**
  *
@@ -20,6 +19,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private CourtPanel courtPanel;
+    private CourtDetailPanel courtDetailPanel;
     /**
      * Creates new form DashboardFrame
      */
@@ -37,9 +37,11 @@ public class DashboardFrame extends javax.swing.JFrame {
         
         // Buat panels
         courtPanel = new CourtPanel(this);
+        courtDetailPanel = new CourtDetailPanel(this);
         
         // Tambahkan panels ke CardLayout dengan nama
         mainPanel.add(courtPanel, "court");
+        mainPanel.add(courtDetailPanel, "courtDetail");
         
         // Tambahkan mainPanel ke frame
         add(mainPanel);
@@ -51,6 +53,15 @@ public class DashboardFrame extends javax.swing.JFrame {
     public void showCourtPanel(){
         cardLayout.show(mainPanel, "court");
     }
+    
+    public void showCourtDetailPanel(){
+        cardLayout.show(mainPanel, "courtDetail");
+    }
+    
+    public CourtDetailPanel getCourtDetailPanel() {
+        return courtDetailPanel;
+    }
+
     
     
 

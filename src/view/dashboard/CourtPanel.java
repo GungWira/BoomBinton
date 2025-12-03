@@ -4,22 +4,112 @@
  */
 package view.dashboard;
 
+import controller.CourtController;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import model.Court;
+
 /**
  *
  * @author gungwira
  */
 public class CourtPanel extends javax.swing.JPanel {
     private DashboardFrame dashboardFrame;
+    private CourtController courtController;
 
     /**
      * Creates new form CourtPanel
      */
     public CourtPanel(DashboardFrame dashboardFrame) {
         this.dashboardFrame = dashboardFrame;
+        courtController = new CourtController();
 
         initComponents();
 
         setSize(1280, 754);
+
+        selectLapanganA.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Court selectedCourt = courtController.getCourtById(1);
+                dashboardFrame.getCourtDetailPanel().setCourt(selectedCourt);
+                dashboardFrame.showCourtDetailPanel();
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                selectLapanganA.setBorder(BorderFactory.createLineBorder(new Color(0, 120, 215), 3));
+                selectLapanganA.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                selectLapanganA.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            }
+        });
+        
+        selectLapanganB.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Court selectedCourt = courtController.getCourtById(2);
+                dashboardFrame.getCourtDetailPanel().setCourt(selectedCourt);
+                dashboardFrame.showCourtDetailPanel();
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                selectLapanganB.setBorder(BorderFactory.createLineBorder(new Color(0, 120, 215), 3));
+                selectLapanganB.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                selectLapanganB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            }
+        });
+        
+        selectLapanganC.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Court selectedCourt = courtController.getCourtById(3);
+                dashboardFrame.getCourtDetailPanel().setCourt(selectedCourt);
+                dashboardFrame.showCourtDetailPanel();
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                selectLapanganC.setBorder(BorderFactory.createLineBorder(new Color(0, 120, 215), 3));
+                selectLapanganC.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                selectLapanganC.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            }
+        });
+        
+        selectLapanganD.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Court selectedCourt = courtController.getCourtById(4);
+                dashboardFrame.getCourtDetailPanel().setCourt(selectedCourt);
+                dashboardFrame.showCourtDetailPanel();
+            }
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                selectLapanganD.setBorder(BorderFactory.createLineBorder(new Color(0, 120, 215), 3));
+                selectLapanganD.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                selectLapanganD.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            }
+        });
     }
 
     /**
@@ -32,13 +122,13 @@ public class CourtPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel9 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        sidebar = new javax.swing.JPanel();
         sidebarLogo = new javax.swing.JLabel();
         sidebarUsersButton = new javax.swing.JButton();
         SidebarLogoSeperator = new javax.swing.JPanel();
         sidebarDashboardButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        header = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -89,14 +179,14 @@ public class CourtPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(237, 237, 237));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(14, 60, 61));
-        jPanel2.setForeground(new java.awt.Color(14, 60, 61));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        sidebar.setBackground(new java.awt.Color(14, 60, 61));
+        sidebar.setForeground(new java.awt.Color(14, 60, 61));
+        sidebar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         sidebarLogo.setFont(new java.awt.Font("Heiti SC", 0, 16)); // NOI18N
         sidebarLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/boombinton_logo.png"))); // NOI18N
         sidebarLogo.setText("BoomBinton");
-        jPanel2.add(sidebarLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 180, 40));
+        sidebar.add(sidebarLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 180, 40));
 
         sidebarUsersButton.setBackground(new java.awt.Color(14, 60, 61));
         sidebarUsersButton.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
@@ -110,7 +200,7 @@ public class CourtPanel extends javax.swing.JPanel {
                 sidebarUsersButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(sidebarUsersButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, 40));
+        sidebar.add(sidebarUsersButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, 40));
 
         SidebarLogoSeperator.setBackground(new java.awt.Color(20, 85, 87));
 
@@ -125,7 +215,7 @@ public class CourtPanel extends javax.swing.JPanel {
             .addGap(0, 1, Short.MAX_VALUE)
         );
 
-        jPanel2.add(SidebarLogoSeperator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 180, 1));
+        sidebar.add(SidebarLogoSeperator, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 180, 1));
 
         sidebarDashboardButton.setBackground(new java.awt.Color(14, 60, 61));
         sidebarDashboardButton.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
@@ -139,28 +229,28 @@ public class CourtPanel extends javax.swing.JPanel {
                 sidebarDashboardButtonActionPerformed(evt);
             }
         });
-        jPanel2.add(sidebarDashboardButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 180, 40));
+        sidebar.add(sidebarDashboardButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 180, 40));
 
         jLabel6.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Admin Dashboard");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        sidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
+        add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        header.setBackground(new java.awt.Color(255, 255, 255));
+        header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Pilih lapangan untuk memulai transaksi booking");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, -1, -1));
+        header.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Heiti SC", 0, 24)); // NOI18N
         jLabel5.setText("Overview Lapangan");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        header.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 1060, 110));
+        add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 1060, 110));
 
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -334,12 +424,13 @@ public class CourtPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_sidebarUsersButtonActionPerformed
 
     private void sidebarDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarDashboardButtonActionPerformed
-        // TODO add your handling code here:
+        dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_sidebarDashboardButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
+    private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -370,8 +461,6 @@ public class CourtPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -379,8 +468,12 @@ public class CourtPanel extends javax.swing.JPanel {
     private javax.swing.JPanel selectLapanganB;
     private javax.swing.JPanel selectLapanganC;
     private javax.swing.JPanel selectLapanganD;
+    private javax.swing.JPanel sidebar;
     private javax.swing.JButton sidebarDashboardButton;
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
