@@ -4,7 +4,23 @@
  */
 package view.dashboard;
 
+import controller.CourtController;
+import java.awt.GridLayout;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import model.Court;
+import util.DateUtils;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.ArrayList;
+import model.TimeSlot;
+import java.util.List;
+import javax.swing.BorderFactory;
 
 /**
  *
@@ -13,24 +29,139 @@ import model.Court;
 public class CourtDetailPanel extends javax.swing.JPanel {
     private DashboardFrame dashboardFrame;
     private Court selectedCourt;
+    private CourtController controller;
+    private LocalDate selectedDate;
+    private Map<Integer, JButton> timeSlotButtons; // Map timeslot ID ke button
+    private JPanel timeSlotPanel;
+    private List<TimeSlot> selectedSlots = new ArrayList<>();
 
     /**
      * Creates new form CourtDetailPanel
      */
     public CourtDetailPanel(DashboardFrame dashboardFrame) {
         this.dashboardFrame = dashboardFrame;
+        this.controller = new CourtController();
+        this.selectedDate = DateUtils.today();
+        this.timeSlotButtons = new HashMap<>();
 
         initComponents();
 
         setSize(1280, 754);
     }
     
-    public void setCourt(Court court){
+    /**
+     * Set court dan load timeslots
+     */
+    public void setCourt(Court court) {
+        
         this.selectedCourt = court;
         
         courtDetailTitle.setText("Lapangan " + selectedCourt.getName());
+        jLabel5.setText(DateUtils.formatIndonesian(selectedDate));
+        confirmButton.setOpaque(true);
+        
+        setupTimeSlotPanel();
+
+        
+    }
+    
+    private void setupTimeSlotPanel() {
+        // fetch data timeslot
+        List<TimeSlot> timeslots = controller.getAllTimeSlots();
+
+        // fetch data timeslot yang sudah dibooking
+        List<Integer> bookedTimeslots = controller.getBookedTimeSlotIds(selectedCourt.getId(), LocalDate.now());
+
+        for (int i = 0; i < timeSlotContainer.getComponentCount(); i++) {
+            Component comp = timeSlotContainer.getComponent(i);
+            if (comp instanceof JButton btn) {
+                setupButtonForTimeSlot(btn, timeslots.get(i), bookedTimeslots);
+            }
+        }
+        
+        totalAvailableSlot.setText("Jam booking tersedia : " + (15 - bookedTimeslots.size()) + "/15");
+        
+    }
+    
+    private void toggleButtonSelection(JButton btn, TimeSlot slot) {
+        Color selectedColor = new Color(79, 138, 107);
+        Color defaultBg = Color.WHITE;
+        Color defaultFg = Color.BLACK;
+
+        boolean isSelected = btn.getBackground().equals(selectedColor);
+
+        if (isSelected) {
+            // Normal
+            btn.setBackground(defaultBg);
+            btn.setForeground(defaultFg);
+            selectedSlots.remove(slot);
+        } else {
+            // Pilih
+            btn.setBackground(selectedColor);
+            btn.setForeground(Color.WHITE);
+            btn.setOpaque(true);
+            selectedSlots.add(slot);
+
+        }
+        
+        updateOrderDetails();
+        
     }
 
+
+    private void setupButtonForTimeSlot(
+            JButton btn,
+            TimeSlot slot,
+            List<Integer> bookedTimeslots
+    ) {
+        int slotId = slot.getId();
+
+        // Set teks
+        btn.setText(slot.getStart_time() + " - " + slot.getEnd_time());
+        btn.setOpaque(true);
+        btn.setContentAreaFilled(true);
+
+        // Jika sudah dibooking user lain → disable
+        if (bookedTimeslots.contains(slotId)) {
+            btn.setEnabled(false);
+            btn.setBackground(new Color(200, 200, 200)); // abu-abu
+            btn.setForeground(Color.DARK_GRAY);
+            return;
+        }
+
+        // Slot available
+        btn.setEnabled(true);
+        btn.setBackground(Color.WHITE);
+        btn.setForeground(Color.BLACK);
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(true);
+        btn.setContentAreaFilled(true);
+        btn.setOpaque(true);
+        btn.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 2));
+
+
+        // Tambahkan klik event
+        btn.addActionListener(e -> toggleButtonSelection(btn, slot));
+    }
+    
+    private void updateOrderDetails() {
+        StringBuilder sb = new StringBuilder();
+        int total = 0;
+
+        for (TimeSlot slot : selectedSlots) {
+            sb.append(slot.getStart_time())
+              .append(" - ")
+              .append(slot.getEnd_time())
+              .append("\n\n");
+
+            total += selectedCourt.getPrice_per_hour();
+        }
+
+        labelOrders.setText("<html>" + sb.toString().replace("\n", "<br>") + "</html>");
+        labelTotal.setText("Total: Rp " + total);
+    }
+
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,28 +180,34 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         header = new javax.swing.JPanel();
         courtDetailTitle = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        mainContainer = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        totalAvailableSlot = new javax.swing.JLabel();
+        timeSlotContainer = new javax.swing.JPanel();
+        buttonId1 = new javax.swing.JButton();
+        buttonId2 = new javax.swing.JButton();
+        buttonId3 = new javax.swing.JButton();
+        buttonId4 = new javax.swing.JButton();
+        buttonId5 = new javax.swing.JButton();
+        buttonId6 = new javax.swing.JButton();
+        buttonId7 = new javax.swing.JButton();
+        buttonId8 = new javax.swing.JButton();
+        buttonId9 = new javax.swing.JButton();
+        buttonId10 = new javax.swing.JButton();
+        buttonId11 = new javax.swing.JButton();
+        buttonId12 = new javax.swing.JButton();
+        buttonId13 = new javax.swing.JButton();
+        buttonId14 = new javax.swing.JButton();
+        buttonId15 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        labelTotal = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
+        labelOrders = new javax.swing.JLabel();
+        confirmButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(234, 234, 234));
         setSize(new java.awt.Dimension(1280, 720));
@@ -147,174 +284,211 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         jLabel8.setText("Pilih jam sewa yang ingin dibooking");
         header.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, -1, -1));
 
+        jButton1.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        jButton1.setText("Konfirmasi");
+        header.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 610, 190, 50));
+
         add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 1060, 110));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        mainContainer.setBackground(new java.awt.Color(255, 255, 255));
+        mainContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setFont(new java.awt.Font("Heiti SC", 0, 20)); // NOI18N
         jLabel5.setText("Rabu, 3 Desember 2025");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        mainContainer.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Jam tersedia : 8/12");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        totalAvailableSlot.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        totalAvailableSlot.setForeground(new java.awt.Color(102, 102, 102));
+        totalAvailableSlot.setText("Jam tersedia : 8/12");
+        mainContainer.add(totalAvailableSlot, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
-        jButton4.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton4.setText("08.00 - 09.00");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        timeSlotContainer.setBackground(new java.awt.Color(255, 255, 255));
+        timeSlotContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        buttonId1.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId1.setText("08.00 - 09.00");
+        buttonId1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                buttonId1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 210, 60));
+        timeSlotContainer.add(buttonId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 60));
 
-        jButton6.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton6.setText("08.00 - 09.00");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        buttonId2.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId2.setText("08.00 - 09.00");
+        buttonId2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                buttonId2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 100, 210, 60));
+        timeSlotContainer.add(buttonId2, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 0, 210, 60));
 
-        jButton7.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton7.setText("08.00 - 09.00");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        buttonId3.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId3.setText("08.00 - 09.00");
+        buttonId3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                buttonId3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 210, 60));
+        timeSlotContainer.add(buttonId3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 210, 60));
 
-        jButton8.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton8.setText("08.00 - 09.00");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        buttonId4.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId4.setText("08.00 - 09.00");
+        buttonId4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                buttonId4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 170, 210, 60));
+        timeSlotContainer.add(buttonId4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 210, 60));
 
-        jButton5.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton5.setText("08.00 - 09.00");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        buttonId5.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId5.setText("08.00 - 09.00");
+        buttonId5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                buttonId5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 170, 210, 60));
+        timeSlotContainer.add(buttonId5, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 70, 210, 60));
 
-        jButton9.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton9.setText("08.00 - 09.00");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        buttonId6.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId6.setText("08.00 - 09.00");
+        buttonId6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                buttonId6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 210, 60));
+        timeSlotContainer.add(buttonId6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 210, 60));
 
-        jButton10.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton10.setText("08.00 - 09.00");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        buttonId7.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId7.setText("08.00 - 09.00");
+        buttonId7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                buttonId7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 210, 60));
+        timeSlotContainer.add(buttonId7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 210, 60));
 
-        jButton11.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton11.setText("08.00 - 09.00");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        buttonId8.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId8.setText("08.00 - 09.00");
+        buttonId8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                buttonId8ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 240, 210, 60));
+        timeSlotContainer.add(buttonId8, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 140, 210, 60));
 
-        jButton12.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton12.setText("08.00 - 09.00");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        buttonId9.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId9.setText("08.00 - 09.00");
+        buttonId9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                buttonId9ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 210, 60));
+        timeSlotContainer.add(buttonId9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 210, 60));
 
-        jButton13.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton13.setText("08.00 - 09.00");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        buttonId10.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId10.setText("08.00 - 09.00");
+        buttonId10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                buttonId10ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, 210, 60));
+        timeSlotContainer.add(buttonId10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 210, 60));
 
-        jButton14.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton14.setText("08.00 - 09.00");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        buttonId11.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId11.setText("08.00 - 09.00");
+        buttonId11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                buttonId11ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 310, 210, 60));
+        timeSlotContainer.add(buttonId11, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 210, 210, 60));
 
-        jButton15.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton15.setText("08.00 - 09.00");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
+        buttonId12.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId12.setText("08.00 - 09.00");
+        buttonId12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
+                buttonId12ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 210, 60));
+        timeSlotContainer.add(buttonId12, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 210, 60));
 
-        jButton16.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton16.setText("08.00 - 09.00");
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
+        buttonId13.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId13.setText("08.00 - 09.00");
+        buttonId13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
+                buttonId13ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 210, 60));
+        timeSlotContainer.add(buttonId13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 210, 60));
 
-        jButton17.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton17.setText("08.00 - 09.00");
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
+        buttonId14.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId14.setText("08.00 - 09.00");
+        buttonId14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+                buttonId14ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 380, 210, 60));
+        timeSlotContainer.add(buttonId14, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 280, 210, 60));
 
-        jButton18.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton18.setText("08.00 - 09.00");
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        buttonId15.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        buttonId15.setText("08.00 - 09.00");
+        buttonId15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                buttonId15ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 380, 210, 60));
+        timeSlotContainer.add(buttonId15, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 210, 60));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 730, 560));
+        mainContainer.add(timeSlotContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 660, 340));
+
+        add(mainContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 730, 560));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel10.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel10.setText("Detail pesanan");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        labelTotal.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        labelTotal.setForeground(new java.awt.Color(102, 102, 102));
+        labelTotal.setText("Total : Rp 0.000");
+        jPanel2.add(labelTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 190, -1));
 
         jLabel9.setFont(new java.awt.Font("Heiti SC", 0, 20)); // NOI18N
         jLabel9.setText("Ringkasan Pesanan");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jButton1.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jButton1.setText("Konfirmasi");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 283, 190, 50));
+        jLabel11.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel11.setText("Detail pesanan");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 130, 250, 360));
+        jScrollPane1.setBackground(new java.awt.Color(244, 244, 244));
+        jScrollPane1.setBorder(null);
+
+        jPanel3.setBackground(new java.awt.Color(249, 249, 249));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        labelOrders.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        labelOrders.setForeground(new java.awt.Color(102, 102, 102));
+        labelOrders.setText("Belum ada data..");
+        jPanel3.add(labelOrders, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 140, -1));
+
+        jScrollPane1.setViewportView(jPanel3);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 190, 330));
+
+        confirmButton.setBackground(new java.awt.Color(0, 51, 51));
+        confirmButton.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
+        confirmButton.setForeground(new java.awt.Color(255, 255, 255));
+        confirmButton.setText("Konfirmasi");
+        confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 190, 50));
+
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 130, 250, 560));
     }// </editor-fold>//GEN-END:initComponents
 
     private void sidebarUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButtonActionPerformed
@@ -325,98 +499,109 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_sidebarDashboardButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void buttonId3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_buttonId3ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void buttonId2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_buttonId2ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void buttonId1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_buttonId1ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void buttonId5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_buttonId5ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void buttonId6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_buttonId6ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void buttonId4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_buttonId4ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void buttonId9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId9ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_buttonId9ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void buttonId8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId8ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_buttonId8ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void buttonId7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId7ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_buttonId7ActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void buttonId12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId12ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_buttonId12ActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void buttonId11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId11ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_buttonId11ActionPerformed
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+    private void buttonId10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId10ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15ActionPerformed
+    }//GEN-LAST:event_buttonId10ActionPerformed
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+    private void buttonId13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId13ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16ActionPerformed
+    }//GEN-LAST:event_buttonId13ActionPerformed
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+    private void buttonId14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId14ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton17ActionPerformed
+    }//GEN-LAST:event_buttonId14ActionPerformed
 
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+    private void buttonId15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonId15ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton18ActionPerformed
+    }//GEN-LAST:event_buttonId15ActionPerformed
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        dashboardFrame.getPaymentPanel().setupData(selectedCourt, selectedSlots, selectedDate);
+        dashboardFrame.showPaymentPanel();
+    }//GEN-LAST:event_confirmButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
+    private javax.swing.JButton buttonId1;
+    private javax.swing.JButton buttonId10;
+    private javax.swing.JButton buttonId11;
+    private javax.swing.JButton buttonId12;
+    private javax.swing.JButton buttonId13;
+    private javax.swing.JButton buttonId14;
+    private javax.swing.JButton buttonId15;
+    private javax.swing.JButton buttonId2;
+    private javax.swing.JButton buttonId3;
+    private javax.swing.JButton buttonId4;
+    private javax.swing.JButton buttonId5;
+    private javax.swing.JButton buttonId6;
+    private javax.swing.JButton buttonId7;
+    private javax.swing.JButton buttonId8;
+    private javax.swing.JButton buttonId9;
+    private javax.swing.JButton confirmButton;
     private javax.swing.JLabel courtDetailTitle;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelOrders;
+    private javax.swing.JLabel labelTotal;
+    private javax.swing.JPanel mainContainer;
     private javax.swing.JPanel sidebar;
     private javax.swing.JButton sidebarDashboardButton;
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton;
+    private javax.swing.JPanel timeSlotContainer;
+    private javax.swing.JLabel totalAvailableSlot;
     // End of variables declaration//GEN-END:variables
 }

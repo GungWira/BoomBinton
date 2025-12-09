@@ -76,6 +76,7 @@ public class LoginPanel extends javax.swing.JPanel {
         loginButton = new javax.swing.JButton();
         createAccountLink = new javax.swing.JLabel();
         image = new javax.swing.JLabel();
+        loginButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -155,6 +156,18 @@ public class LoginPanel extends javax.swing.JPanel {
         image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/login_img.png"))); // NOI18N
         image.setIconTextGap(0);
         add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 640, 720));
+
+        loginButton1.setBackground(new java.awt.Color(0, 51, 51));
+        loginButton1.setFont(new java.awt.Font("Heiti SC", 1, 16)); // NOI18N
+        loginButton1.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton1.setText("Login Sekarang");
+        loginButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        loginButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButton1ActionPerformed(evt);
+            }
+        });
+        add(loginButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 400, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
@@ -192,12 +205,17 @@ public class LoginPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    private void loginButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel createAccountLink;
     private javax.swing.JLabel description;
     private javax.swing.JLabel image;
     private javax.swing.JButton loginButton;
+    private javax.swing.JButton loginButton1;
     private javax.swing.JTextField passwordInput;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JCheckBox termsCheckbox;

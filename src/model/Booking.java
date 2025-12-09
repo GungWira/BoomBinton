@@ -20,8 +20,14 @@ public class Booking {
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;   
-
-    public Booking(Integer id, Integer court_id, Integer user_id, Integer time_slot_id, LocalDateTime booking_date, Integer price, String status) {
+    
+    public Booking() {
+    }
+    
+    // Constructor lengkap
+    public Booking(Integer id, Integer court_id, Integer user_id, Integer time_slot_id, 
+                   LocalDateTime booking_date, Integer price, String status, 
+                   LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.court_id = court_id;
         this.user_id = user_id;
@@ -29,8 +35,8 @@ public class Booking {
         this.booking_date = booking_date;
         this.price = price;
         this.status = status;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
     
     // Getters

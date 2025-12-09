@@ -12,6 +12,9 @@ public class TimeSlot {
     private Integer id;
     private String start_time;
     private String end_time;
+    
+    public TimeSlot() {
+    }
 
     public TimeSlot(Integer id, String start_time, String end_time) {
         this.id = id;
@@ -44,6 +47,15 @@ public class TimeSlot {
 
     public void setEnd_time(String end_time) {
         this.end_time = end_time;
+    }
+    
+    public String getTimeDisplay() {
+        return start_time + " - " + end_time;
+    }
+    
+    @Override
+    public String toString() {
+        return start_time + " - " + end_time;
     }
     
 }
