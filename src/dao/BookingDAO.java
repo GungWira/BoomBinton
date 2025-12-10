@@ -125,7 +125,7 @@ public class BookingDAO {
      */
     public List<Integer> getBookedTimeSlotIds(int courtId, LocalDate date) {
         List<Integer> bookedIds = new ArrayList<>();
-        String sql = "SELECT time_slot_id FROM bookings WHERE court_id = ? AND DATE(booking_date) = ? AND status IN ('confirmed', 'pending')";
+        String sql = "SELECT time_slot_id FROM bookings WHERE court_id = ? AND DATE(booking_date) = ? AND status IN ('booked', 'pending')";
         
         try {
             Connection conn = KoneksiDatabase.getKoneksi();

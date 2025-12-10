@@ -31,8 +31,8 @@ public class CourtDetailPanel extends javax.swing.JPanel {
     private Court selectedCourt;
     private CourtController controller;
     private LocalDate selectedDate;
-    private Map<Integer, JButton> timeSlotButtons; // Map timeslot ID ke button
     private JPanel timeSlotPanel;
+    private Map<Integer, JButton> timeSlotButtons;
     private List<TimeSlot> selectedSlots = new ArrayList<>();
 
     /**
@@ -55,6 +55,10 @@ public class CourtDetailPanel extends javax.swing.JPanel {
     public void setCourt(Court court) {
         
         this.selectedCourt = court;
+        
+        labelOrders.setText("");
+        timeSlotButtons.clear();
+        selectedSlots.clear();
         
         courtDetailTitle.setText("Lapangan " + selectedCourt.getName());
         jLabel5.setText(DateUtils.formatIndonesian(selectedDate));
