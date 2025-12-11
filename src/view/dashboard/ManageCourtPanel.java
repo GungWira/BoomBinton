@@ -30,6 +30,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
     private DashboardFrame dashboardFrame;
     private CourtController courtController;
+    private Court editedCourt;
 
     /**
      * Creates new form ManageCourtPanel
@@ -37,6 +38,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     public ManageCourtPanel(DashboardFrame dashboardFrame) {
         this.dashboardFrame = dashboardFrame;
         this.courtController = new CourtController();
+        this.editedCourt = null;
 
         initComponents();
 
@@ -50,11 +52,10 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         List<Court> courts = courtController.getAllCourts();
 
         for (Court court : courts) {
-            String name = court.getName();
-            String price = "Rp " + court.getPrice_per_hour() + "/jam";
+
             Integer id = court.getId();
 
-            JPanel card = createCourtItemPanel(name, price, id);
+            JPanel card = createCourtItemPanel(court);
             mainContainer.add(card);
         }
 
@@ -67,9 +68,14 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
         setNumericOnly(inputPrice);
 
+        buttonBackToAdd.setVisible(false);
+
     }
 
-    public JPanel createCourtItemPanel(String courtName, String priceText, Integer id) {
+    public JPanel createCourtItemPanel(Court court) {
+        // Setup data
+        String name = court.getName();
+        String price = "Rp " + court.getPrice_per_hour() + "/jam";
 
         // ==== Panel utama ====
         JPanel boxCourtItem = new JPanel();
@@ -82,12 +88,12 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         containerInnerItem.setLayout(new GridLayout(1, 0, 40, 0));
 
         // ==== Nama Lapangan ====
-        JLabel titleCourtItem = new JLabel(courtName);
+        JLabel titleCourtItem = new JLabel(name);
         titleCourtItem.setFont(new Font("Heiti SC", Font.PLAIN, 16));
         containerInnerItem.add(titleCourtItem);
 
         // ==== Harga ====
-        JLabel priceCourtItem = new JLabel(priceText);
+        JLabel priceCourtItem = new JLabel(price);
         priceCourtItem.setFont(new Font("Heiti SC", Font.PLAIN, 16));
         priceCourtItem.setForeground(new Color(79, 138, 107));
         containerInnerItem.add(priceCourtItem);
@@ -113,14 +119,15 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         editCourtItem.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Edit clicked: " + id);
+                editedCourt = court;
+                setupEditCourt(court);
             }
         });
 
         deleteCourtItem.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Delete clicked: " + id);
+                deleteCourt(court);
             }
         });
 
@@ -133,14 +140,14 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     public void createCourt() {
         String name = inputName.getText();
         String priceText = inputPrice.getText().trim();
-        
+
         // VALIDASI NAMA
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(
-                null,
-                "Nama lapangan tidak boleh kosong!",
-                "Peringatan",
-                JOptionPane.WARNING_MESSAGE
+                    null,
+                    "Nama lapangan tidak boleh kosong!",
+                    "Peringatan",
+                    JOptionPane.WARNING_MESSAGE
             );
             return;
         }
@@ -148,15 +155,21 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         // VALIDASI HARGA
         if (priceText.isEmpty()) {
             JOptionPane.showMessageDialog(
-                null,
-                "Harga tidak boleh kosong!",
-                "Peringatan",
-                JOptionPane.WARNING_MESSAGE
+                    null,
+                    "Harga tidak boleh kosong!",
+                    "Peringatan",
+                    JOptionPane.WARNING_MESSAGE
             );
             return;
         }
 
         Integer price = Integer.parseInt(priceText);
+
+        if (editedCourt != null) {
+            editCourt(editedCourt.getId(), name, price);
+            return;
+        }
+
         Boolean res = courtController.createCourt(name, price, "Active");
 
         if (res) {
@@ -178,6 +191,84 @@ public class ManageCourtPanel extends javax.swing.JPanel {
             );
         }
     }
+
+    public void setupEditCourt(Court c) {
+        titleManageCourt.setText("Edit " + c.getName());
+        buttonCreate.setText("Simpan perubahan");
+
+        inputName.setText(c.getName());
+        inputPrice.setText(String.valueOf(c.getPrice_per_hour()));
+
+        buttonBackToAdd.setVisible(true);
+    }
+
+    public void setupAddCourt() {
+        titleManageCourt.setText("Tambah Lapangan ");
+        buttonCreate.setText("Tambah Lapangan");
+
+        inputName.setText("");
+        inputPrice.setText("");
+
+        buttonBackToAdd.setVisible(false);
+    }
+
+    public void editCourt(Integer id, String name, Integer price) {
+        Boolean res = courtController.editCourt(id, name, price, "Active");
+
+        if (res) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Lapangan berhasil diperbaharui!",
+                    "Sukses",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+            inputName.setText("");
+            inputPrice.setText("");
+            setupAddCourt();
+            setupCourt();
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Lapangan gagal ditambahkan!",
+                    "Gagal",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+        }
+    }
+    
+    public void deleteCourt(Court c) {
+        int confirm = JOptionPane.showConfirmDialog(
+                null,
+                "Apakah Anda yakin ingin menghapus lapangan \"" + c.getName() + "\"?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+
+            boolean res = courtController.deleteCourt(c.getId());
+
+            if (res) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Lapangan berhasil dihapus!",
+                        "Sukses",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+                setupCourt(); // refresh tampilan
+            } else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Gagal menghapus lapangan!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    }
+
 
     public class NumericDocumentFilter extends DocumentFilter {
 
@@ -229,7 +320,8 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         checkBoxAktif = new javax.swing.JCheckBox();
         buttonCreate = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
+        titleManageCourt = new javax.swing.JLabel();
+        buttonBackToAdd = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -357,9 +449,19 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         });
         jPanel1.add(buttonCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 310, 50));
 
-        jLabel10.setFont(new java.awt.Font("Heiti SC", 0, 20)); // NOI18N
-        jLabel10.setText("Tambah Lapangan");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        titleManageCourt.setFont(new java.awt.Font("Heiti SC", 0, 20)); // NOI18N
+        titleManageCourt.setText("Tambah Lapangan");
+        jPanel1.add(titleManageCourt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        buttonBackToAdd.setFont(new java.awt.Font("Heiti SC", 0, 13)); // NOI18N
+        buttonBackToAdd.setText("X");
+        buttonBackToAdd.setPreferredSize(new java.awt.Dimension(20, 20));
+        buttonBackToAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBackToAddActionPerformed(evt);
+            }
+        });
+        jPanel1.add(buttonBackToAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 370, 370));
 
@@ -406,15 +508,20 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         createCourt();
     }//GEN-LAST:event_buttonCreateActionPerformed
 
+    private void buttonBackToAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBackToAddActionPerformed
+        // TODO add your handling code here:
+        setupAddCourt();
+    }//GEN-LAST:event_buttonBackToAddActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
+    private javax.swing.JButton buttonBackToAdd;
     private javax.swing.JButton buttonCreate;
     private javax.swing.JCheckBox checkBoxAktif;
     private javax.swing.JPanel header;
     private javax.swing.JTextField inputName;
     private javax.swing.JTextField inputPrice;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -429,5 +536,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     private javax.swing.JButton sidebarDashboardButton;
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton;
+    private javax.swing.JLabel titleManageCourt;
     // End of variables declaration//GEN-END:variables
 }

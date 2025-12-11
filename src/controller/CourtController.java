@@ -97,5 +97,13 @@ public class CourtController {
     public boolean createCourt(String name, Integer price, String status){
         return courtDAO.createCourt(name, price, status);
     }
+    
+    public boolean editCourt(Integer id, String name, Integer price, String status){
+        return courtDAO.editCourt(id, name, price, status);
+    }
+    
+    public boolean deleteCourt(Integer id){
+        return courtDAO.deleteCourt(id);
+    }
    
 }

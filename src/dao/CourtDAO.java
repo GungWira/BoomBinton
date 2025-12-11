@@ -97,6 +97,49 @@ public class CourtDAO {
             return false;
         }
     }
+    
+    public Boolean editCourt(Integer id, String name, Integer price, String status){
+        String sql = "UPDATE courts SET name = ?, price_per_hour = ?, status = ? WHERE id = ?";
+
+        try {
+            Connection conn = KoneksiDatabase.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setInt(2, price);
+            ps.setString(3, status);
+            ps.setInt(4, id);
+
+            int affectedRows = ps.executeUpdate();
+            
+            ps.close();
+
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error update court: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     
+
+    public boolean deleteCourt(int id) {
+        String sql = "DELETE FROM courts WHERE id = ?";
+
+        try {
+            Connection conn = KoneksiDatabase.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rows = ps.executeUpdate();
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error deleteCourt: " + e.getMessage());
+            return false;
+        }
+    }
+    
+
 }
