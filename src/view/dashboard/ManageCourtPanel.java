@@ -69,6 +69,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         setNumericOnly(inputPrice);
 
         buttonBackToAdd.setVisible(false);
+        editedCourt = null;
 
     }
 
@@ -140,6 +141,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     public void createCourt() {
         String name = inputName.getText();
         String priceText = inputPrice.getText().trim();
+        Boolean isChecked = checkBoxAktif.isSelected();
 
         // VALIDASI NAMA
         if (name.isEmpty()) {
@@ -164,13 +166,15 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         }
 
         Integer price = Integer.parseInt(priceText);
+        
+        String status = isChecked ? "Active" : "Deactive";
 
         if (editedCourt != null) {
-            editCourt(editedCourt.getId(), name, price);
+            editCourt(editedCourt.getId(), name, price, status);
             return;
         }
 
-        Boolean res = courtController.createCourt(name, price, "Active");
+        Boolean res = courtController.createCourt(name, price, status);
 
         if (res) {
             JOptionPane.showMessageDialog(
@@ -195,6 +199,11 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     public void setupEditCourt(Court c) {
         titleManageCourt.setText("Edit " + c.getName());
         buttonCreate.setText("Simpan perubahan");
+        
+        System.out.println("Status : " + c.getStatus());
+        
+        checkBoxAktif.setSelected(c.getStatus().equals("Active"));
+
 
         inputName.setText(c.getName());
         inputPrice.setText(String.valueOf(c.getPrice_per_hour()));
@@ -208,12 +217,13 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
         inputName.setText("");
         inputPrice.setText("");
+        checkBoxAktif.setSelected(false);
 
         buttonBackToAdd.setVisible(false);
     }
 
-    public void editCourt(Integer id, String name, Integer price) {
-        Boolean res = courtController.editCourt(id, name, price, "Active");
+    public void editCourt(Integer id, String name, Integer price, String status) {
+        Boolean res = courtController.editCourt(id, name, price, status);
 
         if (res) {
             JOptionPane.showMessageDialog(
@@ -221,7 +231,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
                     "Lapangan berhasil diperbaharui!",
                     "Sukses",
                     JOptionPane.INFORMATION_MESSAGE
-            );
+            ); 
             inputName.setText("");
             inputPrice.setText("");
             setupAddCourt();
@@ -310,6 +320,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         SidebarLogoSeperator = new javax.swing.JPanel();
         sidebarDashboardButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        sidebarUsersButton1 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -343,7 +354,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         sidebarUsersButton.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         sidebarUsersButton.setForeground(new java.awt.Color(255, 255, 255));
         sidebarUsersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
-        sidebarUsersButton.setText(" Users");
+        sidebarUsersButton.setText(" Court");
         sidebarUsersButton.setBorder(null);
         sidebarUsersButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         sidebarUsersButton.addActionListener(new java.awt.event.ActionListener() {
@@ -351,7 +362,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
                 sidebarUsersButtonActionPerformed(evt);
             }
         });
-        sidebar.add(sidebarUsersButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, 40));
+        sidebar.add(sidebarUsersButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 180, 40));
 
         SidebarLogoSeperator.setBackground(new java.awt.Color(20, 85, 87));
 
@@ -386,6 +397,20 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(204, 204, 204));
         jLabel6.setText("Admin Dashboard");
         sidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        sidebarUsersButton1.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton1.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton1.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
+        sidebarUsersButton1.setText(" Users");
+        sidebarUsersButton1.setBorder(null);
+        sidebarUsersButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidebarUsersButton1ActionPerformed(evt);
+            }
+        });
+        sidebar.add(sidebarUsersButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, 40));
 
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
@@ -513,6 +538,10 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         setupAddCourt();
     }//GEN-LAST:event_buttonBackToAddActionPerformed
 
+    private void sidebarUsersButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sidebarUsersButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
@@ -536,6 +565,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     private javax.swing.JButton sidebarDashboardButton;
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton;
+    private javax.swing.JButton sidebarUsersButton1;
     private javax.swing.JLabel titleManageCourt;
     // End of variables declaration//GEN-END:variables
 }
