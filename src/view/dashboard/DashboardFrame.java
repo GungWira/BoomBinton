@@ -21,6 +21,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private CourtPanel courtPanel;
     private CourtDetailPanel courtDetailPanel;
     private PaymentPanel paymentPanel;
+    private ManageCourtPanel manageCourtPanel;
     /**
      * Creates new form DashboardFrame
      */
@@ -40,11 +41,14 @@ public class DashboardFrame extends javax.swing.JFrame {
         courtPanel = new CourtPanel(this);
         courtDetailPanel = new CourtDetailPanel(this);
         paymentPanel = new PaymentPanel(this);
+        manageCourtPanel = new ManageCourtPanel(this);
         
         // Tambahkan panels ke CardLayout dengan nama
         mainPanel.add(courtPanel, "court");
         mainPanel.add(courtDetailPanel, "courtDetail");
         mainPanel.add(paymentPanel, "payment");
+        mainPanel.add(paymentPanel, "payment");
+        mainPanel.add(manageCourtPanel, "manageCourt");
         
         // Tambahkan mainPanel ke frame
         add(mainPanel);
@@ -72,6 +76,14 @@ public class DashboardFrame extends javax.swing.JFrame {
     
     public PaymentPanel getPaymentPanel(){
         return paymentPanel;
+    }
+    
+    public void showManageCourtPanel(){
+        cardLayout.show(mainPanel, "manageCourt");
+    }
+    
+    public ManageCourtPanel getManageCourtPanel(){
+        return manageCourtPanel;
     }
 
     
