@@ -93,5 +93,9 @@ public class CourtController {
     public int calculateTotalPrice(int pricePerHour) {
         return selectedTimeSlots.size() * pricePerHour;
     }
+    
+    public boolean createCourt(String name, Integer price, String status){
+        return courtDAO.createCourt(name, price, status);
+    }
    
 }

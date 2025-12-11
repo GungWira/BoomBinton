@@ -75,4 +75,28 @@ public class CourtDAO {
         return court;
     }
     
+    public boolean createCourt(String name, Integer price, String status) {
+        String sql = "INSERT INTO courts (name, price_per_hour, status) VALUES (?, ?, ?)";
+
+        try {
+            Connection conn = KoneksiDatabase.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, name);
+            ps.setInt(2, price);
+            ps.setString(3, status);
+
+            int rowsInserted = ps.executeUpdate();
+
+            ps.close();
+
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            System.err.println("Error create court: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    
 }
