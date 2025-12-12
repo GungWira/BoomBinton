@@ -145,6 +145,7 @@ public class CourtPanel extends javax.swing.JPanel {
         SidebarLogoSeperator = new javax.swing.JPanel();
         sidebarDashboardButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        sidebarUsersButton1 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -226,6 +227,20 @@ public class CourtPanel extends javax.swing.JPanel {
         jLabel6.setText("Admin Dashboard");
         sidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
+        sidebarUsersButton1.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton1.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton1.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/court-icon.png"))); // NOI18N
+        sidebarUsersButton1.setText(" Court");
+        sidebarUsersButton1.setBorder(null);
+        sidebarUsersButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidebarUsersButton1ActionPerformed(evt);
+            }
+        });
+        sidebar.add(sidebarUsersButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 215, 180, 40));
+
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
@@ -278,6 +293,11 @@ public class CourtPanel extends javax.swing.JPanel {
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_sidebarDashboardButtonActionPerformed
 
+    private void sidebarUsersButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton1ActionPerformed
+        // TODO add your handling code here:
+        dashboardFrame.showManageCourtPanel();
+    }//GEN-LAST:event_sidebarUsersButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
@@ -296,6 +316,7 @@ public class CourtPanel extends javax.swing.JPanel {
     private javax.swing.JButton sidebarDashboardButton;
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton;
+    private javax.swing.JButton sidebarUsersButton1;
     // End of variables declaration//GEN-END:variables
 
 

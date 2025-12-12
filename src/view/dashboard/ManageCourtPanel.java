@@ -316,11 +316,11 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
         sidebar = new javax.swing.JPanel();
         sidebarLogo = new javax.swing.JLabel();
-        sidebarUsersButton = new javax.swing.JButton();
         SidebarLogoSeperator = new javax.swing.JPanel();
         sidebarDashboardButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         sidebarUsersButton1 = new javax.swing.JButton();
+        sidebarUsersButton2 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -349,20 +349,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         sidebarLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/boombinton_logo.png"))); // NOI18N
         sidebarLogo.setText("BoomBinton");
         sidebar.add(sidebarLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 180, 40));
-
-        sidebarUsersButton.setBackground(new java.awt.Color(14, 60, 61));
-        sidebarUsersButton.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        sidebarUsersButton.setForeground(new java.awt.Color(255, 255, 255));
-        sidebarUsersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
-        sidebarUsersButton.setText(" Court");
-        sidebarUsersButton.setBorder(null);
-        sidebarUsersButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        sidebarUsersButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sidebarUsersButtonActionPerformed(evt);
-            }
-        });
-        sidebar.add(sidebarUsersButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 180, 40));
 
         SidebarLogoSeperator.setBackground(new java.awt.Color(20, 85, 87));
 
@@ -401,8 +387,8 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         sidebarUsersButton1.setBackground(new java.awt.Color(14, 60, 61));
         sidebarUsersButton1.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         sidebarUsersButton1.setForeground(new java.awt.Color(255, 255, 255));
-        sidebarUsersButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
-        sidebarUsersButton1.setText(" Users");
+        sidebarUsersButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/court-icon.png"))); // NOI18N
+        sidebarUsersButton1.setText(" Court");
         sidebarUsersButton1.setBorder(null);
         sidebarUsersButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         sidebarUsersButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -410,7 +396,21 @@ public class ManageCourtPanel extends javax.swing.JPanel {
                 sidebarUsersButton1ActionPerformed(evt);
             }
         });
-        sidebar.add(sidebarUsersButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, 40));
+        sidebar.add(sidebarUsersButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 215, 180, 40));
+
+        sidebarUsersButton2.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton2.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton2.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
+        sidebarUsersButton2.setText(" Users");
+        sidebarUsersButton2.setBorder(null);
+        sidebarUsersButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidebarUsersButton2ActionPerformed(evt);
+            }
+        });
+        sidebar.add(sidebarUsersButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, 40));
 
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
@@ -516,10 +516,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, 560));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sidebarUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sidebarUsersButtonActionPerformed
-
     private void sidebarDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarDashboardButtonActionPerformed
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_sidebarDashboardButtonActionPerformed
@@ -540,7 +536,12 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
     private void sidebarUsersButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton1ActionPerformed
         // TODO add your handling code here:
+        dashboardFrame.showManageCourtPanel();
     }//GEN-LAST:event_sidebarUsersButton1ActionPerformed
+
+    private void sidebarUsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sidebarUsersButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -564,8 +565,8 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     private javax.swing.JPanel sidebar;
     private javax.swing.JButton sidebarDashboardButton;
     private javax.swing.JLabel sidebarLogo;
-    private javax.swing.JButton sidebarUsersButton;
     private javax.swing.JButton sidebarUsersButton1;
+    private javax.swing.JButton sidebarUsersButton2;
     private javax.swing.JLabel titleManageCourt;
     // End of variables declaration//GEN-END:variables
 }
