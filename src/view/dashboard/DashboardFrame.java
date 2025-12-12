@@ -59,6 +59,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     }
     
     public void showCourtPanel(){
+        courtPanel.setupPanel();
         cardLayout.show(mainPanel, "court");
     }
     

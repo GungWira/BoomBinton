@@ -3,20 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/PaymentPanel.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/controller/AuthController.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/controller/BookingController.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/model/Booking.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/CourtDetailPanel.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/MainApp.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/dao/CourtDAO.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/dao/TimeSlotDAO.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/ManageCourtPanel.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/controller/CourtController.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/model/Court.java</file>
             <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/CourtPanel.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/MainApp.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/ManageCourtPanel.java</file>
             <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/DashboardFrame.java</file>
-            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/auth/LoginPanel.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/CourtDetailPanel.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/PaymentPanel.java</file>
         </group>
     </open-files>
 </project-private>

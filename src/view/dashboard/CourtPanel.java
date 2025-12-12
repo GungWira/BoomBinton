@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -21,6 +23,7 @@ import model.Court;
  * @author gungwira
  */
 public class CourtPanel extends javax.swing.JPanel {
+
     private DashboardFrame dashboardFrame;
     private CourtController courtController;
 
@@ -35,47 +38,40 @@ public class CourtPanel extends javax.swing.JPanel {
 
         setSize(1280, 754);
         
-        gridContainer.setLayout(new GridLayout(0, 2, 20, 20));
-        
-        
+//        gridContainer.setLayout(new GridLayout(0, 2, 20, 20));
+    }
+
+    public void setupPanel() {
+        gridContainer.removeAll();
+
         List<Court> courts = courtController.getAllCourts();
+        System.out.println("Jumlah court: " + courts.size());
 
         for (Court c : courts) {
-            String name = c.getName();
-            String price = "Rp " + c.getPrice_per_hour()+ "/jam";
-            String slot = "Jadwal Bermain Tersedia";
-            String size = "13,4m x 6,10m";
+            JPanel card = createCourtCard(
+                    c.getName(),
+                    "Rp " + c.getPrice_per_hour() + "/jam",
+                    "Jadwal Bermain Tersedia",
+                    "13,4m x 6,10m"
+            );
 
-            JPanel card = createCourtCard(name, price, slot, size);
-
-            card.addMouseListener(new java.awt.event.MouseAdapter() {
+            card.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                public void mouseClicked(MouseEvent evt) {
                     Court selectedCourt = courtController.getCourtById(c.getId());
                     dashboardFrame.getCourtDetailPanel().setCourt(selectedCourt);
                     dashboardFrame.showCourtDetailPanel();
                 }
-
-                @Override
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    card.setBorder(BorderFactory.createLineBorder(new Color(0, 120, 215), 1));
-                    card.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                }
-
-                @Override
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    card.setBorder(null);
-                }
             });
 
             gridContainer.add(card);
-        }
 
-        gridContainer.setPreferredSize(null);
+        }
+        
         gridContainer.revalidate();
         gridContainer.repaint();
     }
-    
+
     public JPanel createCourtCard(String name, String price, String slotInfo, String size) {
 
         JPanel card = new JPanel();
@@ -127,7 +123,6 @@ public class CourtPanel extends javax.swing.JPanel {
 
         return card;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -282,11 +277,11 @@ public class CourtPanel extends javax.swing.JPanel {
 
         jPanel8.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, -1, 50));
 
-        gridContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 50, 0));
+        gridContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 100, 0));
         gridContainer.setMinimumSize(new java.awt.Dimension(0, 0));
         gridContainer.setPreferredSize(new java.awt.Dimension(0, 0));
-        gridContainer.setLayout(new java.awt.GridLayout(5, 2, 20, 20));
-        jPanel8.add(gridContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 1000, -1));
+        gridContainer.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20));
+        jPanel8.add(gridContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1040, 130));
 
         jScrollPane1.setViewportView(jPanel8);
 
@@ -326,7 +321,5 @@ public class CourtPanel extends javax.swing.JPanel {
     private javax.swing.JButton sidebarUsersButton;
     private javax.swing.JButton sidebarUsersButton1;
     // End of variables declaration//GEN-END:variables
-
-
 
 }
