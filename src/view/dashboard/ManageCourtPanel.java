@@ -324,11 +324,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         mainContainer = new javax.swing.JPanel();
-        containerCard = new javax.swing.JPanel();
-        cardDetail = new javax.swing.JLabel();
-        cardTitle = new javax.swing.JLabel();
-        cardDeleteButton = new javax.swing.JButton();
-        cardEditButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -507,30 +502,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 500));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, 560));
-
-        containerCard.setBackground(new java.awt.Color(249, 249, 249));
-        containerCard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        cardDetail.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        cardDetail.setForeground(new java.awt.Color(102, 102, 102));
-        cardDetail.setText("Acitive - Rp 50.000/jam");
-        containerCard.add(cardDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
-
-        cardTitle.setFont(new java.awt.Font("Heiti SC", 0, 18)); // NOI18N
-        cardTitle.setText("Lapangan A");
-        containerCard.add(cardTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
-        cardDeleteButton.setBackground(new java.awt.Color(249, 249, 249));
-        cardDeleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/delete 6.png"))); // NOI18N
-        cardDeleteButton.setBorder(null);
-        containerCard.add(cardDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
-
-        cardEditButton.setBackground(new java.awt.Color(249, 249, 249));
-        cardEditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/edit fix.png"))); // NOI18N
-        cardEditButton.setBorder(null);
-        containerCard.add(cardEditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
-
-        add(containerCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 500, 560, 90));
     }// </editor-fold>//GEN-END:initComponents
 
     private void sidebarDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarDashboardButtonActionPerformed
@@ -565,12 +536,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     private javax.swing.JPanel SidebarLogoSeperator;
     private javax.swing.JButton buttonBackToAdd;
     private javax.swing.JButton buttonCreate;
-    private javax.swing.JButton cardDeleteButton;
-    private javax.swing.JLabel cardDetail;
-    private javax.swing.JButton cardEditButton;
-    private javax.swing.JLabel cardTitle;
     private javax.swing.JCheckBox checkBoxAktif;
-    private javax.swing.JPanel containerCard;
     private javax.swing.JPanel header;
     private javax.swing.JTextField inputName;
     private javax.swing.JTextField inputPrice;
