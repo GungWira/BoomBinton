@@ -13,6 +13,8 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import model.Court;
 import javax.swing.JLabel;
@@ -48,8 +50,8 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     }
 
     public void setupCourt() {
-        mainContainer.setLayout(new GridLayout(0, 1, 5, 5));
-        
+//        mainContainer.setLayout(new GridLayout(0, 1, 5, 5));
+
         mainContainer.removeAll();
         List<Court> courts = courtController.getAllCourts();
 
@@ -57,11 +59,11 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
             Integer id = court.getId();
 
-            JPanel card = createCourtItemPanel(court);
+            JPanel card = createCourtCard(court);
             mainContainer.add(card);
         }
 
-        mainContainer.setPreferredSize(null);
+//        mainContainer.setPreferredSize(null);
         mainContainer.revalidate();
         mainContainer.repaint();
 
@@ -75,69 +77,54 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
     }
 
-    public JPanel createCourtItemPanel(Court court) {
-        // Setup data
+    public JPanel createCourtCard(Court court) {
+
+        // === Data ===
         String name = court.getName();
-        String price = "Rp " + court.getPrice_per_hour() + "/jam";
+        String detail = court.getStatus() + " - Rp " + court.getPrice_per_hour() + "/jam";
 
-        // ==== Panel utama ====
-        JPanel boxCourtItem = new JPanel();
-        boxCourtItem.setBackground(new Color(249, 249, 249));
-        boxCourtItem.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 16));
+        // === Container Card ===
+        JPanel containerCard = new JPanel();
+        containerCard.setBackground(new Color(249, 249, 249));
+        containerCard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        containerCard.setPreferredSize(new Dimension(560, 100)); // sesuaikan tinggi card
 
-        // ==== Container inner (grid) ====
-        JPanel containerInnerItem = new JPanel();
-        containerInnerItem.setBackground(new Color(249, 249, 249));
-        containerInnerItem.setLayout(new GridLayout(1, 0, 40, 0));
+        // === Title ===
+        JLabel cardTitle = new JLabel(name);
+        cardTitle.setFont(new Font("Heiti SC", Font.PLAIN, 18));
+        containerCard.add(cardTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
-        // ==== Nama Lapangan ====
-        JLabel titleCourtItem = new JLabel(name);
-        titleCourtItem.setFont(new Font("Heiti SC", Font.PLAIN, 16));
-        containerInnerItem.add(titleCourtItem);
+        // === Detail ===
+        JLabel cardDetail = new JLabel(detail);
+        cardDetail.setFont(new Font("Heiti SC", Font.PLAIN, 14));
+        cardDetail.setForeground(new Color(102, 102, 102));
+        containerCard.add(cardDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 55, -1, -1));
 
-        // ==== Harga ====
-        JLabel priceCourtItem = new JLabel(price);
-        priceCourtItem.setFont(new Font("Heiti SC", Font.PLAIN, 16));
-        priceCourtItem.setForeground(new Color(79, 138, 107));
-        containerInnerItem.add(priceCourtItem);
+        // === Edit Button ===
+        JButton cardEditButton = new JButton();
+        cardEditButton.setBackground(new Color(249, 249, 249));
+        cardEditButton.setBorder(null);
+        cardEditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/edit fix.png")));
+        containerCard.add(cardEditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
-        // ==== Tombol Edit ====
-        JLabel editCourtItem = new JLabel("Edit", SwingConstants.CENTER);
-        editCourtItem.setOpaque(true);
-        editCourtItem.setBackground(new Color(79, 138, 107));
-        editCourtItem.setForeground(Color.WHITE);
-        editCourtItem.setBorder(new LineBorder(new Color(204, 204, 204), 1, true));
-        editCourtItem.setPreferredSize(new Dimension(72, 24));
-        containerInnerItem.add(editCourtItem);
+        // === Delete Button ===
+        JButton cardDeleteButton = new JButton();
+        cardDeleteButton.setBackground(new Color(249, 249, 249));
+        cardDeleteButton.setBorder(null);
+        cardDeleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/delete 6.png")));
+        containerCard.add(cardDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
 
-        // ==== Tombol Delete ====
-        JLabel deleteCourtItem = new JLabel("Hapus", SwingConstants.CENTER);
-        deleteCourtItem.setOpaque(true);
-        deleteCourtItem.setBackground(new Color(204, 0, 51));
-        deleteCourtItem.setForeground(Color.WHITE);
-        deleteCourtItem.setBorder(new LineBorder(new Color(204, 204, 204), 1, true));
-        deleteCourtItem.setPreferredSize(new Dimension(72, 24));
-        containerInnerItem.add(deleteCourtItem);
-
-        editCourtItem.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                editedCourt = court;
-                setupEditCourt(court);
-            }
+        // === EVENT LISTENER ===
+        cardEditButton.addActionListener(e -> {
+            editedCourt = court;
+            setupEditCourt(court);
         });
 
-        deleteCourtItem.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                deleteCourt(court);
-            }
+        cardDeleteButton.addActionListener(e -> {
+            deleteCourt(court);
         });
 
-        // ==== Tambahkan container ke panel utama ====
-        boxCourtItem.add(containerInnerItem);
-
-        return boxCourtItem;
+        return containerCard;
     }
 
     public void createCourt() {
@@ -168,7 +155,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         }
 
         Integer price = Integer.parseInt(priceText);
-        
+
         String status = isChecked ? "Active" : "Deactive";
 
         if (editedCourt != null) {
@@ -201,11 +188,10 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     public void setupEditCourt(Court c) {
         titleManageCourt.setText("Edit " + c.getName());
         buttonCreate.setText("Simpan perubahan");
-        
-        System.out.println("Status : " + c.getStatus());
-        
-        checkBoxAktif.setSelected(c.getStatus().equals("Active"));
 
+        System.out.println("Status : " + c.getStatus());
+
+        checkBoxAktif.setSelected(c.getStatus().equals("Active"));
 
         inputName.setText(c.getName());
         inputPrice.setText(String.valueOf(c.getPrice_per_hour()));
@@ -233,7 +219,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
                     "Lapangan berhasil diperbaharui!",
                     "Sukses",
                     JOptionPane.INFORMATION_MESSAGE
-            ); 
+            );
             inputName.setText("");
             inputPrice.setText("");
             setupAddCourt();
@@ -247,7 +233,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
             );
         }
     }
-    
+
     public void deleteCourt(Court c) {
         int confirm = JOptionPane.showConfirmDialog(
                 null,
@@ -280,7 +266,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
             }
         }
     }
-
 
     public class NumericDocumentFilter extends DocumentFilter {
 
@@ -328,17 +313,22 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         inputName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         inputPrice = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         checkBoxAktif = new javax.swing.JCheckBox();
         buttonCreate = new javax.swing.JButton();
         titleManageCourt = new javax.swing.JLabel();
         buttonBackToAdd = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         mainContainer = new javax.swing.JPanel();
+        containerCard = new javax.swing.JPanel();
+        cardDetail = new javax.swing.JLabel();
+        cardTitle = new javax.swing.JLabel();
+        cardDeleteButton = new javax.swing.JButton();
+        cardEditButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(239, 239, 239));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -438,11 +428,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         inputName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(239, 239, 239), 1, true));
         jPanel1.add(inputName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 95, 310, 40));
 
-        jLabel4.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Nama lapangan");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-
         inputPrice.setBackground(new java.awt.Color(249, 249, 249));
         inputPrice.setFont(new java.awt.Font("Heiti SC", 0, 16)); // NOI18N
         inputPrice.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(239, 239, 239), 1, true));
@@ -490,6 +475,11 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         });
         jPanel1.add(buttonBackToAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
+        jLabel10.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel10.setText("Nama lapangan");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 370, 370));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -511,12 +501,36 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         mainContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 30, 0, 30));
         mainContainer.setAutoscrolls(true);
         mainContainer.setPreferredSize(new java.awt.Dimension(0, 0));
-        mainContainer.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
+        mainContainer.setSize(new java.awt.Dimension(560, 0));
         jScrollPane1.setViewportView(mainContainer);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 500));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 130, -1, 560));
+
+        containerCard.setBackground(new java.awt.Color(249, 249, 249));
+        containerCard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cardDetail.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        cardDetail.setForeground(new java.awt.Color(102, 102, 102));
+        cardDetail.setText("Acitive - Rp 50.000/jam");
+        containerCard.add(cardDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+
+        cardTitle.setFont(new java.awt.Font("Heiti SC", 0, 18)); // NOI18N
+        cardTitle.setText("Lapangan A");
+        containerCard.add(cardTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        cardDeleteButton.setBackground(new java.awt.Color(249, 249, 249));
+        cardDeleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/delete 6.png"))); // NOI18N
+        cardDeleteButton.setBorder(null);
+        containerCard.add(cardDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, -1, -1));
+
+        cardEditButton.setBackground(new java.awt.Color(249, 249, 249));
+        cardEditButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/edit fix.png"))); // NOI18N
+        cardEditButton.setBorder(null);
+        containerCard.add(cardEditButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+
+        add(containerCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 500, 560, 90));
     }// </editor-fold>//GEN-END:initComponents
 
     private void sidebarDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarDashboardButtonActionPerformed
@@ -551,11 +565,16 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     private javax.swing.JPanel SidebarLogoSeperator;
     private javax.swing.JButton buttonBackToAdd;
     private javax.swing.JButton buttonCreate;
+    private javax.swing.JButton cardDeleteButton;
+    private javax.swing.JLabel cardDetail;
+    private javax.swing.JButton cardEditButton;
+    private javax.swing.JLabel cardTitle;
     private javax.swing.JCheckBox checkBoxAktif;
+    private javax.swing.JPanel containerCard;
     private javax.swing.JPanel header;
     private javax.swing.JTextField inputName;
     private javax.swing.JTextField inputPrice;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
