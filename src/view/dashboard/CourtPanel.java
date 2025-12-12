@@ -8,6 +8,7 @@ import controller.CourtController;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -34,10 +35,8 @@ public class CourtPanel extends javax.swing.JPanel {
 
         setSize(1280, 754);
         
-        gridContainer.setLayout(new FlowLayout(
-            FlowLayout.LEFT, 
-            20, 20  
-        ));
+        gridContainer.setLayout(new GridLayout(0, 2, 20, 20));
+        
         
         List<Court> courts = courtController.getAllCourts();
 
@@ -72,6 +71,7 @@ public class CourtPanel extends javax.swing.JPanel {
             gridContainer.add(card);
         }
 
+        gridContainer.setPreferredSize(null);
         gridContainer.revalidate();
         gridContainer.repaint();
     }
@@ -257,6 +257,9 @@ public class CourtPanel extends javax.swing.JPanel {
 
         add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 1060, 110));
 
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 100, 0));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/Rental Lapangan Mudah 1.png"))); // NOI18N
@@ -278,7 +281,12 @@ public class CourtPanel extends javax.swing.JPanel {
         );
 
         jPanel8.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, -1, 50));
-        jPanel8.add(gridContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1050, 560));
+
+        gridContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 50, 0));
+        gridContainer.setMinimumSize(new java.awt.Dimension(0, 0));
+        gridContainer.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridContainer.setLayout(new java.awt.GridLayout(5, 2, 20, 20));
+        jPanel8.add(gridContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 1000, -1));
 
         jScrollPane1.setViewportView(jPanel8);
 

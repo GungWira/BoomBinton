@@ -54,8 +54,8 @@ public class DashboardFrame extends javax.swing.JFrame {
         add(mainPanel);
         
         // Tampilkan court panel dulu
-//        showCourtPanel();
-        showManageCourtPanel();
+        showCourtPanel();
+//        showManageCourtPanel();
     }
     
     public void showCourtPanel(){
