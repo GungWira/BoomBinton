@@ -48,6 +48,8 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     }
 
     public void setupCourt() {
+        mainContainer.setLayout(new GridLayout(0, 1, 5, 5));
+        
         mainContainer.removeAll();
         List<Court> courts = courtController.getAllCourts();
 
@@ -506,9 +508,10 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(620, 560));
 
         mainContainer.setBackground(new java.awt.Color(255, 255, 255));
+        mainContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 30, 0, 30));
         mainContainer.setAutoscrolls(true);
         mainContainer.setPreferredSize(new java.awt.Dimension(0, 0));
-        mainContainer.setLayout(new javax.swing.BoxLayout(mainContainer, javax.swing.BoxLayout.Y_AXIS));
+        mainContainer.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
         jScrollPane1.setViewportView(mainContainer);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 500));
