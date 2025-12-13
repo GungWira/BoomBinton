@@ -524,6 +524,7 @@ public class PaymentPanel extends javax.swing.JPanel {
             "Sukses",
             JOptionPane.INFORMATION_MESSAGE
         );
+        dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void sidebarUsersButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton1ActionPerformed

@@ -5,7 +5,6 @@
 package view.dashboard;
 
 import controller.CourtController;
-import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +14,7 @@ import model.Court;
 import util.DateUtils;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import model.TimeSlot;
 import java.util.List;
@@ -27,6 +25,7 @@ import javax.swing.BorderFactory;
  * @author gungwira
  */
 public class CourtDetailPanel extends javax.swing.JPanel {
+
     private DashboardFrame dashboardFrame;
     private Court selectedCourt;
     private CourtController controller;
@@ -48,45 +47,50 @@ public class CourtDetailPanel extends javax.swing.JPanel {
 
         setSize(1280, 754);
     }
-    
+
     /**
      * Set court dan load timeslots
      */
     public void setCourt(Court court) {
-        
+
         this.selectedCourt = court;
-        
+
         labelOrders.setText("");
         timeSlotButtons.clear();
         selectedSlots.clear();
-        
+
         courtDetailTitle.setText("Lapangan " + selectedCourt.getName());
         jLabel5.setText(DateUtils.formatIndonesian(selectedDate));
         confirmButton.setOpaque(true);
-        
+
         setupTimeSlotPanel();
-
-        
     }
-    
-    private void setupTimeSlotPanel() {
-        // fetch data timeslot
-        List<TimeSlot> timeslots = controller.getAllTimeSlots();
 
-        // fetch data timeslot yang sudah dibooking
+    private void setupTimeSlotPanel() {
+
+        List<TimeSlot> timeslots = controller.getAllTimeSlots();
         List<Integer> bookedTimeslots = controller.getBookedTimeSlotIds(selectedCourt.getId(), LocalDate.now());
 
+        for (int i = 0; i < timeSlotContainer.getComponentCount(); i++) {
+            Component comp = timeSlotContainer.getComponent(i);
+            if (comp instanceof JButton btn) {
+                btn.setBackground(Color.WHITE);
+                btn.setForeground(Color.BLACK);
+                btn.setEnabled(true);
+            }
+        }
+
+        // Apply data baru
         for (int i = 0; i < timeSlotContainer.getComponentCount(); i++) {
             Component comp = timeSlotContainer.getComponent(i);
             if (comp instanceof JButton btn) {
                 setupButtonForTimeSlot(btn, timeslots.get(i), bookedTimeslots);
             }
         }
-        
+
         totalAvailableSlot.setText("Jam booking tersedia : " + (15 - bookedTimeslots.size()) + "/15");
-        
     }
-    
+
     private void toggleButtonSelection(JButton btn, TimeSlot slot) {
         Color selectedColor = new Color(79, 138, 107);
         Color defaultBg = Color.WHITE;
@@ -107,11 +111,10 @@ public class CourtDetailPanel extends javax.swing.JPanel {
             selectedSlots.add(slot);
 
         }
-        
-        updateOrderDetails();
-        
-    }
 
+        updateOrderDetails();
+
+    }
 
     private void setupButtonForTimeSlot(
             JButton btn,
@@ -120,43 +123,38 @@ public class CourtDetailPanel extends javax.swing.JPanel {
     ) {
         int slotId = slot.getId();
 
-        // Set teks
+        for (ActionListener al : btn.getActionListeners()) {
+            btn.removeActionListener(al);
+        }
+
         btn.setText(slot.getStart_time() + " - " + slot.getEnd_time());
         btn.setOpaque(true);
         btn.setContentAreaFilled(true);
 
-        // Jika sudah dibooking user lain → disable
         if (bookedTimeslots.contains(slotId)) {
             btn.setEnabled(false);
-            btn.setBackground(new Color(200, 200, 200)); // abu-abu
+            btn.setBackground(new Color(200, 200, 200));
             btn.setForeground(Color.DARK_GRAY);
             return;
         }
 
-        // Slot available
         btn.setEnabled(true);
         btn.setBackground(Color.WHITE);
         btn.setForeground(Color.BLACK);
-        btn.setFocusPainted(false);
-        btn.setBorderPainted(true);
-        btn.setContentAreaFilled(true);
-        btn.setOpaque(true);
         btn.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 2));
 
-
-        // Tambahkan klik event
         btn.addActionListener(e -> toggleButtonSelection(btn, slot));
     }
-    
+
     private void updateOrderDetails() {
         StringBuilder sb = new StringBuilder();
         int total = 0;
 
         for (TimeSlot slot : selectedSlots) {
             sb.append(slot.getStart_time())
-              .append(" - ")
-              .append(slot.getEnd_time())
-              .append("\n\n");
+                    .append(" - ")
+                    .append(slot.getEnd_time())
+                    .append("\n\n");
 
             total += selectedCourt.getPrice_per_hour();
         }
@@ -165,7 +163,6 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         labelTotal.setText("Total: Rp " + total);
     }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
