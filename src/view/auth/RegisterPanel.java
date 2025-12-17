@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JTextField;
 import controller.AuthController;
 import controller.AuthController.RegisterRes;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -198,10 +199,24 @@ public class RegisterPanel extends javax.swing.JPanel {
         RegisterRes res = authController.register(username, password, confirmPassword);
         
         if (res.isSuccess()) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Registrasi berhasil! Silahkan login dengan akun yang baru dibuat!",
+                "Sukses",
+                JOptionPane.INFORMATION_MESSAGE
+            );
             usernameInput.setText("");
             passwordInput.setText("");
+            passwordConfirmInput.setText("");
             System.out.println("Login berhasil");
+            mainFrame.showLogin();
         } else {
+            JOptionPane.showMessageDialog(
+                null,
+                res.getMessage(),
+                "Gagal",
+                JOptionPane.INFORMATION_MESSAGE
+            );
             System.out.println("Login gagal");
         }
         

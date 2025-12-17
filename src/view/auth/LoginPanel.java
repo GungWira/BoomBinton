@@ -8,6 +8,7 @@ import controller.AuthController;
 import controller.AuthController.LoginRes;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -189,6 +190,12 @@ public class LoginPanel extends javax.swing.JPanel {
         LoginRes res = authController.login(username, password);
 
         if (res.isSuccess()) {
+            JOptionPane.showMessageDialog(
+                null,
+                "Selamat datang kembali " + username +"!",
+                "Sukses",
+                JOptionPane.INFORMATION_MESSAGE
+            );
             usernameInput.setText("");
             passwordInput.setText("");
             System.out.println("Login berhasil");
@@ -200,6 +207,12 @@ public class LoginPanel extends javax.swing.JPanel {
 
             });
         } else {
+            JOptionPane.showMessageDialog(
+                null,
+                "Data login tidak ditemukan!",
+                "Gagal",
+                JOptionPane.INFORMATION_MESSAGE
+            );
             System.out.println("Login gagal");
         }
 
