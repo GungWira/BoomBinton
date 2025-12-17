@@ -20,7 +20,10 @@ public class Booking {
     private Integer price;
     private String status;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;   
+    private LocalDateTime updatedAt;  
+    private String courtName;
+    private String startTime;
+    private String endTime;
     
     public Booking() {
     }
@@ -39,6 +42,30 @@ public class Booking {
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public void setCourtName(String courtName) {
+        this.courtName = courtName;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getCourtName() {
+        return courtName;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
     }
     
     // Getters

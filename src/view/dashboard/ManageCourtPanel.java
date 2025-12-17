@@ -43,8 +43,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     }
 
     public void setupCourt() {
-//        mainContainer.setLayout(new GridLayout(0, 1, 5, 5));
-
         mainContainer.removeAll();
         List<Court> courts = courtController.getAllCourts();
 

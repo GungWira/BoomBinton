@@ -5,6 +5,7 @@
 package controller;
 
 import dao.BookingDAO;
+import java.util.List;
 import model.Booking;
 
 /**
@@ -26,6 +27,18 @@ public class BookingController {
         }
 
         return new BookingRes(false, "Gagal menambahkan booking", null);
+    }
+    
+    public List<Booking> getTodayBookings() {
+        return bookingDAO.getTodayBookings();
+    }
+
+    public List<Booking> getMonthlyBookings() {
+        return bookingDAO.getMonthlyBookings();
+    }
+
+    public List<Booking> getYearlyBookings() {
+        return bookingDAO.getYearlyBookings();
     }
 
     
