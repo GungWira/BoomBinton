@@ -34,7 +34,8 @@ public class BookingDAO {
                 Booking booking = new Booking(
                     rs.getInt("id"),
                     rs.getInt("court_id"),
-                    rs.getInt("user_id"),
+                    rs.getString("name"),
+                    rs.getString("phone"),
                     rs.getInt("time_slot_id"),
                     rs.getTimestamp("booking_date").toLocalDateTime(),
                     rs.getInt("price"),
@@ -93,19 +94,20 @@ public class BookingDAO {
      * Create booking baru
      */
     public boolean createBooking(Booking booking) {
-        String sql = "INSERT INTO bookings (court_id, user_id, time_slot_id, booking_date, price, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO bookings (court_id, name, phone, time_slot_id, booking_date, price, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try {
             Connection conn = KoneksiDatabase.getKoneksi();
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, booking.getCourt_id());
-            ps.setInt(2, booking.getUser_id());
-            ps.setInt(3, booking.getTime_slot_id());
-            ps.setTimestamp(4, Timestamp.valueOf(booking.getBooking_date()));
-            ps.setInt(5, booking.getPrice());
-            ps.setString(6, booking.getStatus());
-            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(2, booking.getName());
+            ps.setString(3, booking.getPhone());
+            ps.setInt(4, booking.getTime_slot_id());
+            ps.setTimestamp(5, Timestamp.valueOf(booking.getBooking_date()));
+            ps.setInt(6, booking.getPrice());
+            ps.setString(7, booking.getStatus());
             ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now()));
             
             int rowsAffected = ps.executeUpdate();
             ps.close();

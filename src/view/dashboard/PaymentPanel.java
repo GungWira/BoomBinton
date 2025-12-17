@@ -15,12 +15,14 @@ import javax.swing.JOptionPane;
 import model.Court;
 import model.TimeSlot;
 import model.Booking;
+import util.ReceiptPdfUtil;
 
 /**
  *
  * @author gungwira
  */
 public class PaymentPanel extends javax.swing.JPanel {
+
     private DashboardFrame dashboardFrame;
     private Integer racketAmountVar;
     private Integer kokAmountVar;
@@ -30,6 +32,7 @@ public class PaymentPanel extends javax.swing.JPanel {
     private Integer totalOrder;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", new Locale("id", "ID"));
     private BookingController bookingController;
+
     /**
      * Creates new form PaymentPanel
      */
@@ -39,62 +42,62 @@ public class PaymentPanel extends javax.swing.JPanel {
         this.kokAmountVar = 0;
         this.totalOrder = 0;
         this.bookingController = new BookingController();
-        
+
         initComponents();
-        
+
         setSize(1280, 754);
     }
-    
-    public void setupData(Court court, List<TimeSlot> slots, LocalDate date){
+
+    public void setupData(Court court, List<TimeSlot> slots, LocalDate date) {
         this.court = court;
         this.selectedSlots = slots;
         this.date = date;
-        
+
         setupPanel();
     }
-    
-    public void setupPanel(){
+
+    public void setupPanel() {
         detailCourtTitle.setText("Lapangan " + court.getName());
         dateOrder.setText(date.format(formatter));
         confirmButton.setOpaque(true);
-        
+
         setupOrders();
-        
+
     }
-    
-    public void setupOrders(){
+
+    public void setupOrders() {
         StringBuilder sbSlot = new StringBuilder();
         StringBuilder sbPrice = new StringBuilder();
-        
-        for (TimeSlot slot : selectedSlots){
+
+        for (TimeSlot slot : selectedSlots) {
             sbSlot.append(slot.getStart_time())
-                  .append(" - ")
-                  .append(slot.getEnd_time())
-                  .append("\n\n");
-            
+                    .append(" - ")
+                    .append(slot.getEnd_time())
+                    .append("\n\n");
+
             sbPrice.append("Rp ")
-                   .append(court.getPrice_per_hour().toString())
-                   .append("\n\n");
-            
+                    .append(court.getPrice_per_hour().toString())
+                    .append("\n\n");
+
             totalOrder += court.getPrice_per_hour();
         }
-        
+
         grandTotalPrice.setText("Rp " + totalOrder);
-                
+
         bookingTimes.setText("<html>" + sbSlot.toString().replace("\n", "<br>") + "</html>");
         bookingPrice.setText("<html>" + sbPrice.toString().replace("\n", "<br>") + "</html>");
-        
+
     }
-    
-    public void updateOrder(){
+
+    public void updateOrder() {
         racketDetail.setText("Sewa Raket (" + racketAmountVar + ") :");
         kokDetail.setText("Beli Kok (" + kokAmountVar + ") :");
-        
+
         racketPrice.setText("Rp " + racketAmountVar * 20000);
         kokPrice.setText("Rp " + kokAmountVar * 5000);
-        
+
         grandTotalPrice.setText("Rp " + (totalOrder + racketAmountVar * 20000 + kokAmountVar * 5000));
-        
+
     }
 
     /**
@@ -482,7 +485,7 @@ public class PaymentPanel extends javax.swing.JPanel {
 
     private void racketMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_racketMinActionPerformed
         // TODO add your handling code here:
-        if(racketAmountVar != 0){
+        if (racketAmountVar != 0) {
             racketAmountVar--;
             racketAmount.setText(racketAmountVar.toString());
             updateOrder();
@@ -498,7 +501,7 @@ public class PaymentPanel extends javax.swing.JPanel {
 
     private void kokMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kokMinActionPerformed
         // TODO add your handling code here:
-        if(kokAmountVar != 0){
+        if (kokAmountVar != 0) {
             kokAmountVar--;
             kokAmount.setText(kokAmountVar.toString());
             updateOrder();
@@ -513,16 +516,45 @@ public class PaymentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_kokPlusActionPerformed
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
-        for(TimeSlot slot : selectedSlots){
-            Booking booking = new Booking(null, court.getId(), 1, slot.getId(), LocalDateTime.now(), court.getPrice_per_hour(), "Booked", LocalDateTime.now(), LocalDateTime.now());
-            
+        String name = nameInput.getText();
+        String phone = phoneInput.getText();
+
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Nama pemesan tidak boleh kosong!",
+                    "Peringatan",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        if (phone.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Nomor pemesan tidak boleh kosong!",
+                    "Peringatan",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+        for (TimeSlot slot : selectedSlots) {
+            Booking booking = new Booking(null, court.getId(), name, phone, slot.getId(), LocalDateTime.now(), court.getPrice_per_hour(), "Booked", LocalDateTime.now(), LocalDateTime.now());
+
             bookingController.addBooking(booking);
         }
         JOptionPane.showMessageDialog(
-            null,
-            "Booking berhasil ditambahkan!",
-            "Sukses",
-            JOptionPane.INFORMATION_MESSAGE
+                null,
+                "Booking berhasil ditambahkan!",
+                "Sukses",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+        ReceiptPdfUtil.generateReceipt(
+                court,
+                selectedSlots,
+                date,
+                name,
+                phone
         );
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_confirmButtonActionPerformed

@@ -7,21 +7,14 @@ package view.dashboard;
 import controller.CourtController;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import model.Court;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 import javax.swing.text.*;
 
 /**
@@ -30,8 +23,8 @@ import javax.swing.text.*;
  */
 public class ManageCourtPanel extends javax.swing.JPanel {
 
-    private DashboardFrame dashboardFrame;
-    private CourtController courtController;
+    final private DashboardFrame dashboardFrame;
+    final private CourtController courtController;
     private Court editedCourt;
 
     /**

@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 public class Booking {
     private Integer id;
     private Integer court_id;
-    private Integer user_id;
+    private String name;
+    private String phone;
     private Integer time_slot_id;
     private LocalDateTime booking_date;
     private Integer price;
@@ -25,12 +26,13 @@ public class Booking {
     }
     
     // Constructor lengkap
-    public Booking(Integer id, Integer court_id, Integer user_id, Integer time_slot_id, 
+    public Booking(Integer id, Integer court_id, String name, String phone, Integer time_slot_id, 
                    LocalDateTime booking_date, Integer price, String status, 
                    LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.court_id = court_id;
-        this.user_id = user_id;
+        this.name = name;
+        this.phone = phone;
         this.time_slot_id = time_slot_id;
         this.booking_date = booking_date;
         this.price = price;
@@ -49,8 +51,12 @@ public class Booking {
         return court_id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public String getName() {
+        return name;
+    }
+    
+    public String getPhone(){
+        return phone;
     }
 
     public Integer getTime_slot_id() {
@@ -87,8 +93,12 @@ public class Booking {
         this.court_id = court_id;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setTime_slot_id(Integer time_slot_id) {
