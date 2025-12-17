@@ -153,12 +153,14 @@ public class PaymentPanel extends javax.swing.JPanel {
         kokDetail = new javax.swing.JLabel();
         dateOrder = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        bookingPrice = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         kokPrice = new javax.swing.JLabel();
         racketDetail = new javax.swing.JLabel();
         racketPrice = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
         bookingTimes = new javax.swing.JLabel();
+        bookingPrice = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         grandTotalOrder = new javax.swing.JLabel();
         confirmButton = new javax.swing.JButton();
@@ -410,12 +412,6 @@ public class PaymentPanel extends javax.swing.JPanel {
         jLabel22.setText("Tambahan : ");
         jPanel6.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
-        bookingPrice.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        bookingPrice.setForeground(new java.awt.Color(102, 102, 102));
-        bookingPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        bookingPrice.setText("Rp 0.000");
-        jPanel6.add(bookingPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, -1, -1));
-
         jLabel26.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(102, 102, 102));
         jLabel26.setText("Detail booking :");
@@ -438,10 +434,28 @@ public class PaymentPanel extends javax.swing.JPanel {
         racketPrice.setText("Rp 0.000");
         jPanel6.add(racketPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, -1, -1));
 
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setToolTipText("");
+
+        jPanel4.setBackground(new java.awt.Color(249, 249, 249));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         bookingTimes.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         bookingTimes.setForeground(new java.awt.Color(102, 102, 102));
         bookingTimes.setText("08:00 - 09:00");
-        jPanel6.add(bookingTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        jPanel4.add(bookingTimes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
+
+        bookingPrice.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        bookingPrice.setForeground(new java.awt.Color(102, 102, 102));
+        bookingPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        bookingPrice.setText("Rp 0.000");
+        jPanel4.add(bookingPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 150, -1));
+
+        jScrollPane2.setViewportView(jPanel4);
+
+        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 260, 100));
 
         jScrollPane1.setViewportView(jPanel6);
 
@@ -609,8 +623,10 @@ public class PaymentPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel kokAmount;
     private javax.swing.JLabel kokDetail;
     private javax.swing.JPanel kokInput;
