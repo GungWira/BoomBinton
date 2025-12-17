@@ -5,6 +5,7 @@
 package view.dashboard;
 
 import controller.BookingController;
+import controller.MemberController;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,6 +35,7 @@ public class PaymentPanel extends javax.swing.JPanel {
     private Integer totalOrder;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", new Locale("id", "ID"));
     private BookingController bookingController;
+    private MemberController memberController;
 
     /**
      * Creates new form PaymentPanel
@@ -44,6 +46,7 @@ public class PaymentPanel extends javax.swing.JPanel {
         this.kokAmountVar = 0;
         this.totalOrder = 0;
         this.bookingController = new BookingController();
+        this.memberController = new MemberController();
 
         initComponents();
 
@@ -548,6 +551,10 @@ public class PaymentPanel extends javax.swing.JPanel {
         Racket racket = new Racket(racketAmountVar);
         Shuttlecock kok = new Shuttlecock(kokAmountVar);
         
+        int points = (totalOrder + racketAmountVar * 20000 + kokAmountVar * 5000) / 10000;
+        
+        int currentPoints = memberController.handleMemberPoint(name, phone, points);
+        
         JOptionPane.showMessageDialog(
                 null,
                 "Booking berhasil ditambahkan!",
@@ -561,7 +568,8 @@ public class PaymentPanel extends javax.swing.JPanel {
                 name,
                 phone,
                 racket,
-                kok
+                kok,
+                currentPoints
         );
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_confirmButtonActionPerformed

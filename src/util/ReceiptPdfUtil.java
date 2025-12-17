@@ -38,7 +38,8 @@ public class ReceiptPdfUtil {
             String customerName,
             String customerPhone,
             Racket racket,
-            Shuttlecock kok
+            Shuttlecock kok,
+            Integer currentPoints
     ) {
         try (PDDocument doc = new PDDocument()) {
             float pageHeight = calculatePageHeight(
@@ -66,7 +67,7 @@ public class ReceiptPdfUtil {
             y -= 20;
 
             // ========== BOOKING INFO ==========
-            y = drawBookingInfo(cs, y, court, date, customerName, customerPhone);
+            y = drawBookingInfo(cs, y, court, date, customerName, customerPhone, currentPoints);
             y -= 15;
 
             // ========== SEPARATOR LINE ==========
@@ -183,20 +184,22 @@ public class ReceiptPdfUtil {
 
     private static float drawBookingInfo(PDPageContentStream cs, float y,
             Court court, LocalDate date,
-            String customerName, String customerPhone) throws IOException {
+            String customerName, String customerPhone, Integer currentPoints) throws IOException {
         cs.beginText();
         cs.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 9);
         cs.newLineAtOffset(MARGIN, y);
 
-        cs.showText("Tanggal    : " + DateUtils.formatIndonesian(date));
+        cs.showText("Tanggal       : " + DateUtils.formatIndonesian(date));
         cs.newLineAtOffset(0, -12);
-        cs.showText("Waktu      : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        cs.showText("Waktu         : " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         cs.newLineAtOffset(0, -12);
-        cs.showText("Lapangan   : " + court.getName());
+        cs.showText("Lapangan      : " + court.getName());
         cs.newLineAtOffset(0, -12);
-        cs.showText("Pelanggan  : " + customerName);
+        cs.showText("Pelanggan     : " + customerName);
         cs.newLineAtOffset(0, -12);
-        cs.showText("No. HP     : " + customerPhone);
+        cs.showText("No. HP        : " + customerPhone);
+        cs.newLineAtOffset(0, -12);
+        cs.showText("Total Point   : " + currentPoints);
 
         cs.endText();
 
