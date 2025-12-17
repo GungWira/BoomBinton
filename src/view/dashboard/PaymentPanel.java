@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import model.Court;
 import model.TimeSlot;
 import model.Booking;
+import model.Racket;
+import model.Shuttlecock;
 import util.ReceiptPdfUtil;
 
 /**
@@ -543,6 +545,9 @@ public class PaymentPanel extends javax.swing.JPanel {
 
             bookingController.addBooking(booking);
         }
+        Racket racket = new Racket(racketAmountVar);
+        Shuttlecock kok = new Shuttlecock(kokAmountVar);
+        
         JOptionPane.showMessageDialog(
                 null,
                 "Booking berhasil ditambahkan!",
@@ -554,7 +559,9 @@ public class PaymentPanel extends javax.swing.JPanel {
                 selectedSlots,
                 date,
                 name,
-                phone
+                phone,
+                racket,
+                kok
         );
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_confirmButtonActionPerformed
