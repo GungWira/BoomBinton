@@ -53,7 +53,11 @@ public class ManageCourtPanel extends javax.swing.JPanel {
             mainContainer.add(card);
         }
 
-//        mainContainer.setPreferredSize(null);
+        int cardHeight = 100;
+        int spacing = 10;
+        int totalHeight = (courts.size() * cardHeight) + ((courts.size() - 1) * spacing);
+
+        mainContainer.setPreferredSize(new Dimension(560, totalHeight));
         mainContainer.revalidate();
         mainContainer.repaint();
 

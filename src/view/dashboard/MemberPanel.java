@@ -5,6 +5,7 @@
 package view.dashboard;
 
 import controller.MemberController;
+import java.awt.Dimension;
 import model.Member;
 import java.util.List;
 import javax.swing.JLabel;
@@ -39,6 +40,12 @@ public class MemberPanel extends javax.swing.JPanel {
             JPanel card = createMemberCard(member);
             mainContainer.add(card);
         }
+        
+        int cardHeight = 80;
+        int spacing = 10;
+        int totalHeight = (members.size() * cardHeight) + ((members.size() - 1) * spacing);
+
+        mainContainer.setPreferredSize(new Dimension(560, totalHeight));
         
         mainContainer.revalidate();
         mainContainer.repaint();
