@@ -65,7 +65,17 @@ public class CourtPanel extends javax.swing.JPanel {
             gridContainer.add(card);
 
         }
-        gridContainer.setPreferredSize(null);
+        int cardWidth = 490;
+        int cardHeight = 170;
+        int horizontalGap = 20;
+        int verticalGap = 20;
+        int containerWidth = 1040;
+
+        int cardsPerRow = (containerWidth + horizontalGap) / (cardWidth + horizontalGap);
+        int rows = (int) Math.ceil((double) courts.size() / cardsPerRow);
+        int calculatedHeight = (rows * cardHeight) + ((rows + 1) * verticalGap);
+
+        gridContainer.setPreferredSize(new java.awt.Dimension(containerWidth, calculatedHeight));
         gridContainer.revalidate();
         gridContainer.repaint();
     }
