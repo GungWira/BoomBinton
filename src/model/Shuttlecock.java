@@ -11,6 +11,6 @@ package model;
 public class Shuttlecock extends ExtraItem {
 
     public Shuttlecock(int quantity) {
-        super("Shuttlecock", 15000, quantity);
+        super("Shuttlecock", 5000, quantity);
     }
 }
