@@ -179,6 +179,7 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         sidebarDashboardButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         sidebarUsersButton1 = new javax.swing.JButton();
+        sidebarUsersButton2 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         courtDetailTitle = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -285,6 +286,20 @@ public class CourtDetailPanel extends javax.swing.JPanel {
             }
         });
         sidebar.add(sidebarUsersButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 215, 180, 40));
+
+        sidebarUsersButton2.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton2.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton2.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/court-icon.png"))); // NOI18N
+        sidebarUsersButton2.setText(" History");
+        sidebarUsersButton2.setBorder(null);
+        sidebarUsersButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidebarUsersButton2ActionPerformed(evt);
+            }
+        });
+        sidebar.add(sidebarUsersButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 180, 40));
 
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
@@ -586,6 +601,11 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         dashboardFrame.showManageCourtPanel();
     }//GEN-LAST:event_sidebarUsersButton1ActionPerformed
 
+    private void sidebarUsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton2ActionPerformed
+        // TODO add your handling code here:
+        dashboardFrame.showHistoryPanel();
+    }//GEN-LAST:event_sidebarUsersButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
@@ -624,6 +644,7 @@ public class CourtDetailPanel extends javax.swing.JPanel {
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton;
     private javax.swing.JButton sidebarUsersButton1;
+    private javax.swing.JButton sidebarUsersButton2;
     private javax.swing.JPanel timeSlotContainer;
     private javax.swing.JLabel totalAvailableSlot;
     // End of variables declaration//GEN-END:variables
