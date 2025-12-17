@@ -290,7 +290,7 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         sidebarUsersButton2.setBackground(new java.awt.Color(14, 60, 61));
         sidebarUsersButton2.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         sidebarUsersButton2.setForeground(new java.awt.Color(255, 255, 255));
-        sidebarUsersButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/court-icon.png"))); // NOI18N
+        sidebarUsersButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/history boombin.png"))); // NOI18N
         sidebarUsersButton2.setText(" History");
         sidebarUsersButton2.setBorder(null);
         sidebarUsersButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

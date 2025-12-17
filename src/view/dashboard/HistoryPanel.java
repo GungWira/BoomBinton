@@ -162,9 +162,9 @@ public class HistoryPanel extends javax.swing.JPanel {
         SidebarLogoSeperator = new javax.swing.JPanel();
         sidebarDashboardButton = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        sidebarUsersButton1 = new javax.swing.JButton();
         sidebarUsersButton2 = new javax.swing.JButton();
         sidebarUsersButton3 = new javax.swing.JButton();
+        sidebarUsersButton4 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -221,20 +221,6 @@ public class HistoryPanel extends javax.swing.JPanel {
         jLabel6.setText("Admin Dashboard");
         sidebar.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        sidebarUsersButton1.setBackground(new java.awt.Color(14, 60, 61));
-        sidebarUsersButton1.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        sidebarUsersButton1.setForeground(new java.awt.Color(255, 255, 255));
-        sidebarUsersButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/court-icon.png"))); // NOI18N
-        sidebarUsersButton1.setText(" History");
-        sidebarUsersButton1.setBorder(null);
-        sidebarUsersButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        sidebarUsersButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sidebarUsersButton1ActionPerformed(evt);
-            }
-        });
-        sidebar.add(sidebarUsersButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 180, 40));
-
         sidebarUsersButton2.setBackground(new java.awt.Color(14, 60, 61));
         sidebarUsersButton2.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         sidebarUsersButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -262,6 +248,20 @@ public class HistoryPanel extends javax.swing.JPanel {
             }
         });
         sidebar.add(sidebarUsersButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 215, 180, 40));
+
+        sidebarUsersButton4.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton4.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton4.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/history boombin.png"))); // NOI18N
+        sidebarUsersButton4.setText(" History");
+        sidebarUsersButton4.setBorder(null);
+        sidebarUsersButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidebarUsersButton4ActionPerformed(evt);
+            }
+        });
+        sidebar.add(sidebarUsersButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 180, 40));
 
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
@@ -350,11 +350,6 @@ public class HistoryPanel extends javax.swing.JPanel {
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_sidebarDashboardButtonActionPerformed
 
-    private void sidebarUsersButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton1ActionPerformed
-        // TODO add your handling code here:
-        dashboardFrame.showHistoryPanel();
-    }//GEN-LAST:event_sidebarUsersButton1ActionPerformed
-
     private void sidebarUsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton2ActionPerformed
         // TODO add your handling code here:
         dashboardFrame.showMemberPanel();
@@ -379,6 +374,11 @@ public class HistoryPanel extends javax.swing.JPanel {
         setupHistoryMonthly();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void sidebarUsersButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton4ActionPerformed
+        // TODO add your handling code here:
+        dashboardFrame.showHistoryPanel();
+    }//GEN-LAST:event_sidebarUsersButton4ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
@@ -395,9 +395,9 @@ public class HistoryPanel extends javax.swing.JPanel {
     private javax.swing.JPanel sidebar;
     private javax.swing.JButton sidebarDashboardButton;
     private javax.swing.JLabel sidebarLogo;
-    private javax.swing.JButton sidebarUsersButton1;
     private javax.swing.JButton sidebarUsersButton2;
     private javax.swing.JButton sidebarUsersButton3;
+    private javax.swing.JButton sidebarUsersButton4;
     private javax.swing.JLabel titlePage;
     // End of variables declaration//GEN-END:variables
 }

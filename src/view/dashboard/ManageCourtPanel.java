@@ -300,7 +300,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         sidebarUsersButton1 = new javax.swing.JButton();
         sidebarUsersButton2 = new javax.swing.JButton();
-        sidebarUsersButton3 = new javax.swing.JButton();
+        sidebarUsersButton4 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -392,19 +392,19 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         });
         sidebar.add(sidebarUsersButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 180, 40));
 
-        sidebarUsersButton3.setBackground(new java.awt.Color(14, 60, 61));
-        sidebarUsersButton3.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
-        sidebarUsersButton3.setForeground(new java.awt.Color(255, 255, 255));
-        sidebarUsersButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/court-icon.png"))); // NOI18N
-        sidebarUsersButton3.setText(" History");
-        sidebarUsersButton3.setBorder(null);
-        sidebarUsersButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        sidebarUsersButton3.addActionListener(new java.awt.event.ActionListener() {
+        sidebarUsersButton4.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton4.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton4.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/history boombin.png"))); // NOI18N
+        sidebarUsersButton4.setText(" History");
+        sidebarUsersButton4.setBorder(null);
+        sidebarUsersButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sidebarUsersButton3ActionPerformed(evt);
+                sidebarUsersButton4ActionPerformed(evt);
             }
         });
-        sidebar.add(sidebarUsersButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 180, 40));
+        sidebar.add(sidebarUsersButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 180, 40));
 
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
@@ -539,10 +539,10 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         dashboardFrame.showMemberPanel();
     }//GEN-LAST:event_sidebarUsersButton2ActionPerformed
 
-    private void sidebarUsersButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton3ActionPerformed
+    private void sidebarUsersButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton4ActionPerformed
         // TODO add your handling code here:
         dashboardFrame.showHistoryPanel();
-    }//GEN-LAST:event_sidebarUsersButton3ActionPerformed
+    }//GEN-LAST:event_sidebarUsersButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -568,7 +568,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton1;
     private javax.swing.JButton sidebarUsersButton2;
-    private javax.swing.JButton sidebarUsersButton3;
+    private javax.swing.JButton sidebarUsersButton4;
     private javax.swing.JLabel titleManageCourt;
     // End of variables declaration//GEN-END:variables
 }
