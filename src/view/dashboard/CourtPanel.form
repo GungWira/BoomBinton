@@ -89,7 +89,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/assets/images/users-icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value=" Users"/>
+            <Property name="text" type="java.lang.String" value=" Member"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -338,7 +338,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="320" width="1040" height="130"/>
+                  <AbsoluteConstraints x="0" y="320" width="1040" height="-1"/>
                 </Constraint>
               </Constraints>
 

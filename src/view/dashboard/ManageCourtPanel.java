@@ -49,9 +49,6 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         List<Court> courts = courtController.getAllCourts();
 
         for (Court court : courts) {
-
-            Integer id = court.getId();
-
             JPanel card = createCourtCard(court);
             mainContainer.add(card);
         }
@@ -382,7 +379,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
         sidebarUsersButton2.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         sidebarUsersButton2.setForeground(new java.awt.Color(255, 255, 255));
         sidebarUsersButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
-        sidebarUsersButton2.setText(" Users");
+        sidebarUsersButton2.setText(" Member");
         sidebarUsersButton2.setBorder(null);
         sidebarUsersButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         sidebarUsersButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -522,6 +519,7 @@ public class ManageCourtPanel extends javax.swing.JPanel {
 
     private void sidebarUsersButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton2ActionPerformed
         // TODO add your handling code here:
+        dashboardFrame.showMemberPanel();
     }//GEN-LAST:event_sidebarUsersButton2ActionPerformed
 
 

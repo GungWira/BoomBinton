@@ -37,8 +37,6 @@ public class CourtPanel extends javax.swing.JPanel {
         initComponents();
 
         setSize(1280, 754);
-        
-//        gridContainer.setLayout(new GridLayout(0, 2, 20, 20));
     }
 
     public void setupPanel() {
@@ -67,7 +65,7 @@ public class CourtPanel extends javax.swing.JPanel {
             gridContainer.add(card);
 
         }
-        
+        gridContainer.setPreferredSize(null);
         gridContainer.revalidate();
         gridContainer.repaint();
     }
@@ -178,7 +176,7 @@ public class CourtPanel extends javax.swing.JPanel {
         sidebarUsersButton.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         sidebarUsersButton.setForeground(new java.awt.Color(255, 255, 255));
         sidebarUsersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
-        sidebarUsersButton.setText(" Users");
+        sidebarUsersButton.setText(" Member");
         sidebarUsersButton.setBorder(null);
         sidebarUsersButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         sidebarUsersButton.addActionListener(new java.awt.event.ActionListener() {
@@ -281,7 +279,7 @@ public class CourtPanel extends javax.swing.JPanel {
         gridContainer.setMinimumSize(new java.awt.Dimension(0, 0));
         gridContainer.setPreferredSize(new java.awt.Dimension(0, 0));
         gridContainer.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20));
-        jPanel8.add(gridContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1040, 130));
+        jPanel8.add(gridContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 1040, -1));
 
         jScrollPane1.setViewportView(jPanel8);
 
@@ -290,6 +288,7 @@ public class CourtPanel extends javax.swing.JPanel {
 
     private void sidebarUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButtonActionPerformed
         // TODO add your handling code here:
+        dashboardFrame.showMemberPanel();
     }//GEN-LAST:event_sidebarUsersButtonActionPerformed
 
     private void sidebarDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarDashboardButtonActionPerformed

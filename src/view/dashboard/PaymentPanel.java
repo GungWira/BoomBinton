@@ -178,7 +178,7 @@ public class PaymentPanel extends javax.swing.JPanel {
         sidebarUsersButton.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
         sidebarUsersButton.setForeground(new java.awt.Color(255, 255, 255));
         sidebarUsersButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/users-icon.png"))); // NOI18N
-        sidebarUsersButton.setText(" Users");
+        sidebarUsersButton.setText(" Member");
         sidebarUsersButton.setBorder(null);
         sidebarUsersButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         sidebarUsersButton.addActionListener(new java.awt.event.ActionListener() {
@@ -474,6 +474,7 @@ public class PaymentPanel extends javax.swing.JPanel {
 
     private void sidebarUsersButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButtonActionPerformed
         // TODO add your handling code here:
+        dashboardFrame.showMemberPanel();
     }//GEN-LAST:event_sidebarUsersButtonActionPerformed
 
     private void sidebarDashboardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarDashboardButtonActionPerformed
