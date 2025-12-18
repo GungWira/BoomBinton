@@ -39,6 +39,15 @@ public class CourtController {
         }
     }
     
+    public List<Court> getAllActiveCourts() {
+        try {
+            return courtDAO.getAllActiveCourts();
+        } catch (Exception e) {
+            System.err.println("Error di CourtController.getAllCourts: " + e.getMessage());
+            return null;
+        }
+    }
+    
     public Court getCourtById(Integer id){
         try {
             return courtDAO.getCourtById(id);

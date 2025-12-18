@@ -46,6 +46,32 @@ public class CourtDAO {
         return courts;
     }
     
+    public List<Court> getAllActiveCourts() {
+        List<Court> courts = new ArrayList<>();
+        String sql = "SELECT * FROM courts WHERE status = 'Active' ORDER BY name";
+        
+        try {
+            Connection conn = KoneksiDatabase.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Court court = new Court(rs.getInt("id"), rs.getString("name"), rs.getString("status"), rs.getInt("price_per_hour"));
+               
+                courts.add(court);
+            }
+            
+            rs.close();
+            ps.close();
+            
+        } catch (SQLException e) {
+            System.err.println("Error get all courts: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return courts;
+    }
+    
     /**
      * Get lapangan by ID
      */

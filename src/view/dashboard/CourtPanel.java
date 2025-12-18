@@ -42,7 +42,7 @@ public class CourtPanel extends javax.swing.JPanel {
     public void setupPanel() {
         gridContainer.removeAll();
 
-        List<Court> courts = courtController.getAllCourts();
+        List<Court> courts = courtController.getAllActiveCourts();
         System.out.println("Jumlah court: " + courts.size());
 
         for (Court c : courts) {
@@ -157,7 +157,6 @@ public class CourtPanel extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         gridContainer = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -287,19 +286,6 @@ public class CourtPanel extends javax.swing.JPanel {
         jLabel7.setText("Lapangan tersedia");
         jPanel8.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        jPanel8.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, -1, 50));
-
         gridContainer.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 100, 0));
         gridContainer.setMinimumSize(new java.awt.Dimension(0, 0));
         gridContainer.setPreferredSize(new java.awt.Dimension(0, 0));
@@ -340,7 +326,6 @@ public class CourtPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;

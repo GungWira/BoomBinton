@@ -357,6 +357,7 @@ public class HistoryPanel extends javax.swing.JPanel {
 
     private void sidebarUsersButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton3ActionPerformed
         // TODO add your handling code here:
+        dashboardFrame.showManageCourtPanel();
     }//GEN-LAST:event_sidebarUsersButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
