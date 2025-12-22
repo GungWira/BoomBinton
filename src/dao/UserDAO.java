@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
  */
 public class UserDAO {
 
+    // method untuk proses login ke sistem dengan pengecekan data username dan password yang ada di database
     public User authenticate(String username, String password) {
         User user = null;
         String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -44,6 +45,7 @@ public class UserDAO {
         return user;
     }
     
+    // method untuk menambahkan data anggota baru
     public User register(String username, String password){
         User user = null;
         String sql = "INSERT INTO users (username, password, created_at, updated_at) VALUES (?, ?, ?, ?)";
@@ -74,6 +76,7 @@ public class UserDAO {
         }
     }
     
+    // method untuk memriksa apakah username ada pada database atau tidak
     public boolean isUsernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
         
