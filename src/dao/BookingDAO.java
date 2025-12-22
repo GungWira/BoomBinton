@@ -16,50 +16,9 @@ import java.util.List;
  *
  * @author gungwira
  */
-public class BookingDAO {
-
-    public List<Booking> getBookingsByCourtAndDate(int courtId, LocalDate date) {
-        List<Booking> bookings = new ArrayList<>();
-        String sql = "SELECT * FROM bookings WHERE court_id = ? AND DATE(booking_date) = ? AND status IN ('confirmed', 'pending')";
-
-        try {
-            Connection conn = KoneksiDatabase.getKoneksi();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, courtId);
-            ps.setDate(2, Date.valueOf(date));
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Booking booking = new Booking(
-                        rs.getInt("id"),
-                        rs.getInt("court_id"),
-                        rs.getString("name"),
-                        rs.getString("phone"),
-                        rs.getInt("time_slot_id"),
-                        rs.getTimestamp("booking_date").toLocalDateTime(),
-                        rs.getInt("price"),
-                        rs.getString("status"),
-                        rs.getTimestamp("created_at").toLocalDateTime(),
-                        rs.getTimestamp("updated_at").toLocalDateTime()
-                );
-                bookings.add(booking);
-            }
-
-            rs.close();
-            ps.close();
-
-        } catch (SQLException e) {
-            System.err.println("Error get bookings by court and date: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        return bookings;
-    }
+public class BookingDAO {    
     
-    /**
-     * Create booking baru
-     */
+    // method untuk create booking lapangan baru
     public boolean createBooking(Booking booking) {
         String sql = "INSERT INTO bookings (court_id, name, phone, time_slot_id, booking_date, price, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -89,9 +48,7 @@ public class BookingDAO {
         return false;
     }
 
-    /**
-     * Get booked timeslot IDs untuk court dan tanggal tertentu
-     */
+    // method untuk get data timeslot yang sudah terbooking dengan return berupa list id dari timeslot yang sudah dibooking hari ini 
     public List<Integer> getBookedTimeSlotIds(int courtId, LocalDate date) {
         List<Integer> bookedIds = new ArrayList<>();
         String sql = "SELECT time_slot_id FROM bookings WHERE court_id = ? AND DATE(booking_date) = ? AND status IN ('booked', 'pending')";
@@ -119,9 +76,7 @@ public class BookingDAO {
         return bookedIds;
     }
 
-    // ===============================
-    // BOOKING HARI INI
-    // ===============================
+    // method untuk get data booking hari ini
     public List<Booking> getTodayBookings() {
         String sql = """
             SELECT 
@@ -139,9 +94,7 @@ public class BookingDAO {
         return getBookings(sql);
     }
 
-    // ===============================
-    // BOOKING 1 BULAN
-    // ===============================
+   // method untuk get data booking bulan ini
     public List<Booking> getMonthlyBookings() {
         String sql = """
             SELECT 
@@ -159,9 +112,7 @@ public class BookingDAO {
         return getBookings(sql);
     }
 
-    // ===============================
-    // BOOKING 1 TAHUN
-    // ===============================
+    // method untuk get data booking tahun ini
     public List<Booking> getYearlyBookings() {
         String sql = """
             SELECT 
@@ -179,9 +130,7 @@ public class BookingDAO {
         return getBookings(sql);
     }
 
-    // ===============================
-    // HELPER (BIAR TIDAK DUPLIKASI)
-    // ===============================
+    // helper method yang digunakan untuk mencegah duplikasi atau penulisan kode berulang
     private List<Booking> getBookings(String sql) {
         List<Booking> bookings = new ArrayList<>();
 
