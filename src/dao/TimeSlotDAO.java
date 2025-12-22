@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DAO untuk TimeSlot
+ * 
  * @author gungwira
  */
 public class TimeSlotDAO {
@@ -76,5 +76,68 @@ public class TimeSlotDAO {
         }
         
         return timeSlot;
+    }
+    
+    public boolean createTimeSlot(String startTime, String endTime) {
+        String sql = "INSERT INTO time_slots (start_time, end_time) VALUES (?, ?)";
+
+        try {
+            Connection conn = KoneksiDatabase.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, startTime);
+            ps.setString(2, endTime);
+
+            int rows = ps.executeUpdate();
+            ps.close();
+
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error create time slot: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean editTimeSlot(Integer id, String startTime, String endTime) {
+        String sql = "UPDATE time_slots SET start_time = ?, end_time = ? WHERE id = ?";
+
+        try {
+            Connection conn = KoneksiDatabase.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, startTime);
+            ps.setString(2, endTime);
+            ps.setInt(3, id);
+
+            int rows = ps.executeUpdate();
+            ps.close();
+
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error edit time slot: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean deleteTimeSlot(Integer id) {
+        String sql = "DELETE FROM time_slots WHERE id = ?";
+
+        try {
+            Connection conn = KoneksiDatabase.getKoneksi();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int rows = ps.executeUpdate();
+            ps.close();
+
+            return rows > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error delete time slot: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 }
