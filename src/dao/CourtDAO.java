@@ -17,9 +17,7 @@ import java.util.List;
  */
 public class CourtDAO {
     
-    /**
-     * Get semua lapangan
-     */
+    // method untuk get semua data court yang ada
     public List<Court> getAllCourts() {
         List<Court> courts = new ArrayList<>();
         String sql = "SELECT * FROM courts ORDER BY name";
@@ -46,6 +44,7 @@ public class CourtDAO {
         return courts;
     }
     
+    // method untuk get semua data court dengan status active
     public List<Court> getAllActiveCourts() {
         List<Court> courts = new ArrayList<>();
         String sql = "SELECT * FROM courts WHERE status = 'Active' ORDER BY name";
@@ -72,9 +71,7 @@ public class CourtDAO {
         return courts;
     }
     
-    /**
-     * Get lapangan by ID
-     */
+    // method untuk get data court berdasarkan id spesifik
     public Court getCourtById(int id) {
         Court court = null;
         String sql = "SELECT * FROM courts WHERE id = ?";
@@ -101,6 +98,7 @@ public class CourtDAO {
         return court;
     }
     
+    // method untuk create court baru
     public boolean createCourt(String name, Integer price, String status) {
         String sql = "INSERT INTO courts (name, price_per_hour, status) VALUES (?, ?, ?)";
 
@@ -124,6 +122,7 @@ public class CourtDAO {
         }
     }
     
+    // method untuk edit data court yang sudah ada
     public Boolean editCourt(Integer id, String name, Integer price, String status){
         String sql = "UPDATE courts SET name = ?, price_per_hour = ?, status = ? WHERE id = ?";
 
@@ -149,8 +148,7 @@ public class CourtDAO {
         }
     }
 
-    
-
+    // method untuk menghapus data court yang ada
     public boolean deleteCourt(int id) {
         String sql = "DELETE FROM courts WHERE id = ?";
 
