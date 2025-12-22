@@ -165,6 +165,7 @@ public class HistoryPanel extends javax.swing.JPanel {
         sidebarUsersButton2 = new javax.swing.JButton();
         sidebarUsersButton3 = new javax.swing.JButton();
         sidebarUsersButton4 = new javax.swing.JButton();
+        sidebarUsersButton5 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -262,6 +263,20 @@ public class HistoryPanel extends javax.swing.JPanel {
             }
         });
         sidebar.add(sidebarUsersButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 180, 40));
+
+        sidebarUsersButton5.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton5.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton5.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/time_slots.png"))); // NOI18N
+        sidebarUsersButton5.setText(" Timeslot");
+        sidebarUsersButton5.setBorder(null);
+        sidebarUsersButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidebarUsersButton5ActionPerformed(evt);
+            }
+        });
+        sidebar.add(sidebarUsersButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 180, 40));
 
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
@@ -380,6 +395,11 @@ public class HistoryPanel extends javax.swing.JPanel {
         dashboardFrame.showHistoryPanel();
     }//GEN-LAST:event_sidebarUsersButton4ActionPerformed
 
+    private void sidebarUsersButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton5ActionPerformed
+        // TODO add your handling code here:
+        dashboardFrame.showTimeslotPanel();
+    }//GEN-LAST:event_sidebarUsersButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
@@ -399,6 +419,7 @@ public class HistoryPanel extends javax.swing.JPanel {
     private javax.swing.JButton sidebarUsersButton2;
     private javax.swing.JButton sidebarUsersButton3;
     private javax.swing.JButton sidebarUsersButton4;
+    private javax.swing.JButton sidebarUsersButton5;
     private javax.swing.JLabel titlePage;
     // End of variables declaration//GEN-END:variables
 }

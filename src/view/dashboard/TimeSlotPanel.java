@@ -315,6 +315,7 @@ public class TimeSlotPanel extends javax.swing.JPanel {
         sidebarUsersButton1 = new javax.swing.JButton();
         sidebarUsersButton2 = new javax.swing.JButton();
         sidebarUsersButton4 = new javax.swing.JButton();
+        sidebarUsersButton3 = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -421,6 +422,20 @@ public class TimeSlotPanel extends javax.swing.JPanel {
             }
         });
         sidebar.add(sidebarUsersButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 180, 40));
+
+        sidebarUsersButton3.setBackground(new java.awt.Color(14, 60, 61));
+        sidebarUsersButton3.setFont(new java.awt.Font("Heiti SC", 0, 14)); // NOI18N
+        sidebarUsersButton3.setForeground(new java.awt.Color(255, 255, 255));
+        sidebarUsersButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/time_slots.png"))); // NOI18N
+        sidebarUsersButton3.setText(" Timeslot");
+        sidebarUsersButton3.setBorder(null);
+        sidebarUsersButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        sidebarUsersButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sidebarUsersButton3ActionPerformed(evt);
+            }
+        });
+        sidebar.add(sidebarUsersButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 180, 40));
 
         add(sidebar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 720));
 
@@ -563,6 +578,11 @@ public class TimeSlotPanel extends javax.swing.JPanel {
         setupAddTimeslot();
     }//GEN-LAST:event_buttonBackToAddActionPerformed
 
+    private void sidebarUsersButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton3ActionPerformed
+        // TODO add your handling code here:
+        dashboardFrame.showTimeslotPanel();
+    }//GEN-LAST:event_sidebarUsersButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SidebarLogoSeperator;
@@ -589,6 +609,7 @@ public class TimeSlotPanel extends javax.swing.JPanel {
     private javax.swing.JLabel sidebarLogo;
     private javax.swing.JButton sidebarUsersButton1;
     private javax.swing.JButton sidebarUsersButton2;
+    private javax.swing.JButton sidebarUsersButton3;
     private javax.swing.JButton sidebarUsersButton4;
     private javax.swing.JLabel timeCard;
     private javax.swing.JLabel titleManageCourt;
