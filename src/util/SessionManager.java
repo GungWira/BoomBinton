@@ -29,6 +29,7 @@ public class SessionManager {
         return instance;
     }
     
+    // method untuk login dan menyimpan data login pengguna
     public void login(Integer userId, String username) {
         this.userId = userId;
         this.username = username;
@@ -38,6 +39,7 @@ public class SessionManager {
         System.out.println("Sesi login berhasil dibuat");
     }
     
+    // method untuk logout dan menghapus data sesi login pengguna
     public void logout() {
         this.userId = null;
         this.username = null;
@@ -47,10 +49,12 @@ public class SessionManager {
         System.out.println("Sesi login berhasil dihapus");
     }
     
+    // helper method untuk memeriksa status login
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
     
+    // helper method untuk memeriksa apakah sesi valid (maksimal 8 jam)
     public boolean isSessionValid() {
         if (!isLoggedIn) {
             return false;

@@ -24,13 +24,11 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
  */
 public class ReceiptPdfUtil {
 
-    // Konstanta untuk styling
+    // Contant untuk styling
     private static final float MARGIN = 30;
     private static final float PAGE_WIDTH = PDRectangle.A6.getWidth();
 
-    /**
-     * Generate struk booking dalam format PDF
-     */
+    // method untuk generate struck
     public static void generateReceipt(
             Court court,
             List<TimeSlot> slots,
@@ -127,9 +125,7 @@ public class ReceiptPdfUtil {
         }
     }
 
-    /**
-     * Draw logo (jika ada)
-     */
+    // method untuk draw logo dengan fallback teks BOOMBINTON
     private static float drawLogo(PDPageContentStream cs, float y) throws IOException {
         try {
             // Coba load logo dari assets/images/logo.png
@@ -158,23 +154,20 @@ public class ReceiptPdfUtil {
         return y;
     }
 
+    // method untuk menyusun header receipt
     private static float drawHeader(PDPageContentStream cs, float y) throws IOException {
-        // Nama toko
         drawCenteredText(cs, "BOOMBINTON", y,
                 new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 14);
         y -= 15;
 
-        // Subtitle
         drawCenteredText(cs, "Badminton Court Rental", y,
                 new PDType1Font(Standard14Fonts.FontName.HELVETICA), 9);
         y -= 12;
 
-        // Alamat
-        drawCenteredText(cs, "Jl. Olahraga No. 123, Surabaya", y,
+        drawCenteredText(cs, "Jl. Tukad Badung No. 17A", y,
                 new PDType1Font(Standard14Fonts.FontName.HELVETICA), 8);
         y -= 10;
 
-        // Telp
         drawCenteredText(cs, "Telp: +62 123 456 7890", y,
                 new PDType1Font(Standard14Fonts.FontName.HELVETICA), 8);
         y -= 5;
@@ -182,6 +175,7 @@ public class ReceiptPdfUtil {
         return y;
     }
 
+    // method untuk menyusun data booking yang dipesan pengguna
     private static float drawBookingInfo(PDPageContentStream cs, float y,
             Court court, LocalDate date,
             String customerName, String customerPhone, Integer currentPoints) throws IOException {
@@ -206,6 +200,7 @@ public class ReceiptPdfUtil {
         return y - 60;
     }
 
+    // method untuk menyusun daftar timeslot yang dibooking pengguna 
     private static float drawTimeSlots(PDPageContentStream cs, float y,
             List<TimeSlot> slots, Court court) throws IOException {
         cs.beginText();
@@ -236,6 +231,7 @@ public class ReceiptPdfUtil {
         return y;
     }
 
+    // method untuk menyusun data booking tambahan pengguna seperti raket dan kok
     private static float drawExtraItems(PDPageContentStream cs, float y, Racket racket, Shuttlecock kok) throws IOException {
         if (racket.getQuantity() == 0 || kok.getQuantity() == 0) {
             return y;
@@ -274,6 +270,7 @@ public class ReceiptPdfUtil {
         return y;
     }
 
+    // method untuk menyusun total belanja pengguna
     private static float drawTotal(PDPageContentStream cs, float y,
             int jumlahJam, int total) throws IOException {
         cs.beginText();
@@ -295,6 +292,7 @@ public class ReceiptPdfUtil {
         return y;
     }
 
+    // method untuk footer
     private static void drawFooter(PDPageContentStream cs, float y) throws IOException {
         y -= 5;
 
@@ -318,6 +316,7 @@ public class ReceiptPdfUtil {
                 new PDType1Font(Standard14Fonts.FontName.HELVETICA), 7);
     }
 
+    // helper method untuk menulis text ditengah
     private static void drawCenteredText(PDPageContentStream cs, String text, float y,
             PDType1Font font, float fontSize) throws IOException {
         float textWidth = font.getStringWidth(text) / 1000 * fontSize;
@@ -330,12 +329,14 @@ public class ReceiptPdfUtil {
         cs.endText();
     }
 
+    // helper method untuk menggambar garis
     private static void drawLine(PDPageContentStream cs, float x1, float y, float x2, float y2) throws IOException {
         cs.moveTo(x1, y);
         cs.lineTo(x2, y2);
         cs.stroke();
     }
 
+    // helper method untuk menggambar garis putus putus
     private static void drawDashedLine(PDPageContentStream cs, float x1, float y, float x2, float y2) throws IOException {
         cs.setLineDashPattern(new float[]{3, 3}, 0);
         cs.moveTo(x1, y);
@@ -344,10 +345,12 @@ public class ReceiptPdfUtil {
         cs.setLineDashPattern(new float[]{}, 0); // Reset to solid
     }
 
+    // helper method untuk menulis format uang dalam rupiah
     private static String formatRupiah(int amount) {
         return String.format("Rp %,d", amount).replace(',', '.');
     }
 
+    // helper method untuk menulis format waktu booking
     private static String formatTime(String time) {
         if (time != null && time.length() >= 5) {
             return time.substring(0, 5);
@@ -355,6 +358,7 @@ public class ReceiptPdfUtil {
         return time;
     }
 
+    // method untuk membuka pdf pada layar pengguna
     private static void openPDF(String filename) {
         try {
             File file = new File(filename);
@@ -369,6 +373,7 @@ public class ReceiptPdfUtil {
         }
     }
 
+    // helper method untuk menghitung dan menyesuaikan tinggi receipt pengguna
     private static float calculatePageHeight(
             int slotCount,
             Racket racket,
