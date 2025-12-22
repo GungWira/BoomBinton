@@ -16,10 +16,12 @@ public class MemberController {
 
     private final MemberDAO memberDAO;
 
+    // method constructor untuk member controller
     public MemberController() {
         this.memberDAO = new MemberDAO();
     }
 
+    // method untuk handle penambahan point pada member yang terdaftar sekaligus membuat member baru jika nomor telepon tidak terdaftar pada sistem
     public Integer handleMemberPoint(
             String name,
             String phone,
@@ -32,6 +34,7 @@ public class MemberController {
         return memberDAO.updateMember(name, phone, pointEarned);
     }
 
+    // method untuk mengambil seluruh data member aktif saat ini
     public List<Member> getAllMembers() {
         return memberDAO.getAllMembers();
     }
