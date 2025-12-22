@@ -14,12 +14,13 @@ import util.SessionManager;
  */
 public class AuthController {
 
-    private UserDAO userDAO;
+    final private UserDAO userDAO;
 
     public AuthController() {
         this.userDAO = new UserDAO();
     }
 
+    // method untuk handle proses login pada sistem
     public LoginRes login(String username, String password) {
         // Validasi input kosong
         if (username == null || username.trim().isEmpty()) {
@@ -49,6 +50,7 @@ public class AuthController {
         }
     }
 
+    // method untuk handle proses registrasi user baru pada aplikasi
     public RegisterRes register(String username, String password, String confirmPassword) {
         // Validasi input kosong
         if (username == null || username.trim().isEmpty()) {
@@ -82,9 +84,11 @@ public class AuthController {
             return new RegisterRes(false, "Username sudah digunakan, silakan pilih username lain");
         }
 
+        // buat user baru
         User newUser = userDAO.register(username, password);
 
         if (newUser != null) {
+            // atur session agar user bisa tetap login
             SessionManager.getInstance().login(newUser.getId(), newUser.getUsername());
             return new RegisterRes(true, "Registrasi berhasil! Silakan login");
         } else {
@@ -92,19 +96,17 @@ public class AuthController {
         }
     }
 
+    // method untuk logout pengguna
     public void logout() {
         SessionManager.getInstance().logout();
     }
 
-    public boolean isLoggedIn() {
-        return SessionManager.getInstance().isLoggedIn();
-    }
-
+    // static class untuk return type pada sistem login
     public static class LoginRes {
 
-        private boolean success;
-        private String message;
-        private User user;
+        final private boolean success;
+        final private String message;
+        final private User user;
 
         public LoginRes(boolean success, String message, User user) {
             this.success = success;
@@ -125,10 +127,11 @@ public class AuthController {
         }
     }
 
+    // static class untuk return type pada sistem registrasi pengguna baru
     public static class RegisterRes {
 
-        private boolean success;
-        private String message;
+        final private boolean success;
+        final private String message;
 
         public RegisterRes(boolean success, String message) {
             this.success = success;

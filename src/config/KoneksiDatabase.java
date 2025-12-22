@@ -15,6 +15,7 @@ import java.sql.SQLException;
 public class KoneksiDatabase {
     private static Connection koneksi;
     
+    // menthod untuk konfigurasi koneksi ke database
     public static Connection getKoneksi(){
         
         if (koneksi == null){

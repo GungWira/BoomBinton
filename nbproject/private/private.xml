@@ -12,6 +12,10 @@
             <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/HistoryPanel.java</file>
             <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/ManageCourtPanel.java</file>
             <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/MemberPanel.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/config/KoneksiDatabase.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/dao/CourtDAO.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/controller/CourtController.java</file>
+            <file>file:/Users/gungwira/NetBeansProjects/BoomBinton/src/view/dashboard/DashboardFrame.java</file>
         </group>
     </open-files>
 </project-private>
