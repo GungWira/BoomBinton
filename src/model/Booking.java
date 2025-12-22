@@ -28,7 +28,7 @@ public class Booking {
     public Booking() {
     }
     
-    // Constructor lengkap
+    // method constructor
     public Booking(Integer id, Integer court_id, String name, String phone, Integer time_slot_id, 
                    LocalDateTime booking_date, Integer price, String status, 
                    LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -43,6 +43,8 @@ public class Booking {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+    
+    // Setters
 
     public void setCourtName(String courtName) {
         this.courtName = courtName;

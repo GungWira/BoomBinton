@@ -14,9 +14,11 @@ public class Member {
     private String phone;
     private Integer point;
 
+    // method constructor untuk member kosong untuk keperluan proses pembuatan member yang belum sepenuhnya selesai
     public Member() {
     }
 
+    // method constructor untuk member
     public Member(Integer id, String name, String phone, Integer point) {
         this.id = id;
         this.name = name;

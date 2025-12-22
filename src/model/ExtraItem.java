@@ -13,6 +13,7 @@ public abstract class ExtraItem implements OrderItem{
     protected int price;
     protected int quantity;
 
+    // method constructor untuk court
     public ExtraItem(String name, int price, int quantity) {
         this.name = name;
         this.price = price;

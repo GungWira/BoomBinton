@@ -13,9 +13,11 @@ public class TimeSlot {
     private String start_time;
     private String end_time;
     
+    // method constructor kosong untuk timeslot pada saat proses pembuatan timeslotnya
     public TimeSlot() {
     }
 
+    // method constructor untuk timeslot
     public TimeSlot(Integer id, String start_time, String end_time) {
         this.id = id;
         this.start_time = start_time;

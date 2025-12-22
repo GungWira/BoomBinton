@@ -18,6 +18,7 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    // method constructor untuk user
     public User(Integer id, String username, String password) {
         this.id = id;
         this.username = username;

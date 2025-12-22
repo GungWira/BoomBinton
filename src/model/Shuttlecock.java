@@ -10,6 +10,7 @@ package model;
  */
 public class Shuttlecock extends ExtraItem {
 
+    // method constructor untuk shuttlecock yang merupakan turunan dari ExtraItem
     public Shuttlecock(int quantity) {
         super("Shuttlecock", 5000, quantity);
     }

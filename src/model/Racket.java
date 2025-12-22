@@ -10,6 +10,7 @@ package model;
  */
 public class Racket extends ExtraItem{
     
+    // method constructor untuk racket yang merupakan turunna dari ExtraItem
     public Racket(int quantity) {
         super("Racket", 20000, quantity);
     }

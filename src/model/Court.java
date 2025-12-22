@@ -14,6 +14,7 @@ public class Court {
     private String status;
     private Integer price_per_hour;
     
+    // method constructor untuk court
     public Court(Integer id, String name, String status, Integer price_per_hour){
         this.id = id;
         this.name = name;
