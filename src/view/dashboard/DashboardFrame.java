@@ -24,6 +24,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private ManageCourtPanel manageCourtPanel;
     private MemberPanel memberPanel;
     private HistoryPanel historyPanel;
+    private TimeSlotPanel timeslotPanel;
     /**
      * Creates new form DashboardFrame
      */
@@ -46,6 +47,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         manageCourtPanel = new ManageCourtPanel(this);
         memberPanel = new MemberPanel(this);
         historyPanel = new HistoryPanel(this);
+        timeslotPanel = new TimeSlotPanel(this);
         
         // Tambahkan panels ke CardLayout dengan nama
         mainPanel.add(courtPanel, "court");
@@ -54,6 +56,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         mainPanel.add(manageCourtPanel, "manageCourt");
         mainPanel.add(memberPanel, "member");
         mainPanel.add(historyPanel, "history");
+        mainPanel.add(timeslotPanel, "timeslot");
         
         // Tambahkan mainPanel ke frame
         add(mainPanel);
@@ -108,6 +111,16 @@ public class DashboardFrame extends javax.swing.JFrame {
     public HistoryPanel getHistoryPanel(){
         return historyPanel;
     }
+
+    public void showTimeslotPanel(){
+        timeslotPanel.setupTimeslot();
+        cardLayout.show(mainPanel, "timeslot");
+    }
+    
+    public TimeSlotPanel getTimeslotPanel(){
+        return timeslotPanel;
+    }
+
 
     
     

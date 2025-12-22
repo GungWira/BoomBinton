@@ -25,18 +25,18 @@ public class TimeslotController {
         return timeSlotDAO.getAllTimeSlots();
     }
     
-    // method untuk membuat court baru
-    public boolean createCourt(String startTime, String endTime){
+    // method untuk membuat timeslot baru
+    public boolean createTimeslot(String startTime, String endTime){
         return timeSlotDAO.createTimeSlot(startTime, endTime);
     }
     
-    // method untuk menyimpan perubahan data court
-    public boolean editCourt(Integer id, String startTime, String endTime){
+    // method untuk menyimpan perubahan data timeslot
+    public boolean editTimeslot(Integer id, String startTime, String endTime){
         return timeSlotDAO.editTimeSlot(id, startTime, endTime);
     }
     
-    // method untuk menghapus data court
-    public boolean deleteCourt(Integer id){
+    // method untuk menghapus data timeslot
+    public boolean deleteTimeslot(Integer id){
         return timeSlotDAO.deleteTimeSlot(id);
     }
 }

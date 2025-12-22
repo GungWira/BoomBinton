@@ -101,6 +101,7 @@ public class TimeSlotDAO {
     
     public boolean editTimeSlot(Integer id, String startTime, String endTime) {
         String sql = "UPDATE time_slots SET start_time = ?, end_time = ? WHERE id = ?";
+        System.out.println("Time Start" + startTime + " on id : " + id);
 
         try {
             Connection conn = KoneksiDatabase.getKoneksi();
