@@ -16,6 +16,7 @@ import config.KoneksiDatabase;
 
 public class MemberDAO {
 
+    // method untuk update data member berupa memperbarui jumlah point maupun nama member dengan kode unik telepon serta membuat member baru jika data telepon belum tercatat
     public Integer updateMember(String name, String phone, int pointEarned) {
 
         String checkSql = "SELECT point FROM members WHERE phone = ?";
@@ -68,9 +69,7 @@ public class MemberDAO {
         }
     }
 
-    /**
-     * Ambil semua data member
-     */
+    // method untuk mengambil semua data member
     public List<Member> getAllMembers() {
         List<Member> members = new ArrayList<>();
         String sql = "SELECT * FROM members ORDER BY point DESC";
