@@ -18,11 +18,12 @@ import model.TimeSlot;
  * @author gungwira
  */
 public class CourtController {
-    private CourtDAO courtDAO;
-    private TimeSlotDAO timeSlotDAO;
-    private BookingDAO bookingDAO;
-    private List<TimeSlot> selectedTimeSlots;
+    final private CourtDAO courtDAO;
+    final private TimeSlotDAO timeSlotDAO;
+    final private BookingDAO bookingDAO;
+    final private List<TimeSlot> selectedTimeSlots;
     
+    // method constructor untuk court controller
     public CourtController(){
         this.courtDAO = new CourtDAO();
         this.timeSlotDAO = new TimeSlotDAO();
@@ -30,6 +31,7 @@ public class CourtController {
         this.selectedTimeSlots = new ArrayList<>();
     }
     
+    // method untuk mengambil semua data lapangan saat ini
     public List<Court> getAllCourts() {
         try {
             return courtDAO.getAllCourts();
@@ -39,6 +41,7 @@ public class CourtController {
         }
     }
     
+    // method untuk mengambil semua data lapangan active saat ini
     public List<Court> getAllActiveCourts() {
         try {
             return courtDAO.getAllActiveCourts();
@@ -48,6 +51,7 @@ public class CourtController {
         }
     }
     
+    // method untuk mengambil data lapangan spesifik berdasarkan id lapangan
     public Court getCourtById(Integer id){
         try {
             return courtDAO.getCourtById(id);
@@ -57,60 +61,27 @@ public class CourtController {
         }
     }
     
+    // method untuk mengambil list time slot saat ini
     public List<TimeSlot> getAllTimeSlots() {
         return timeSlotDAO.getAllTimeSlots();
     }
 
+    // method untuk mengambil data timeslot yang sudah dibooking pada suatu court dan tanggal hari ini
     public List<Integer> getBookedTimeSlotIds(int courtId, LocalDate date) {
         return bookingDAO.getBookedTimeSlotIds(courtId, date);
     }
     
-    public boolean isTimeSlotBooked(int courtId, int timeSlotId, LocalDate date) {
-        return bookingDAO.isTimeSlotBooked(courtId, timeSlotId, date);
-    }
-    
-    public void toggleTimeSlotSelection(TimeSlot timeSlot) {
-        if (isTimeSlotSelected(timeSlot)) {
-            selectedTimeSlots.remove(timeSlot);
-        } else {
-            selectedTimeSlots.add(timeSlot);
-        }
-    }
-    
-    public boolean isTimeSlotSelected(TimeSlot timeSlot) {
-        return selectedTimeSlots.stream()
-            .anyMatch(ts -> ts.getId().equals(timeSlot.getId()));
-    }
-    
-    public List<TimeSlot> getSelectedTimeSlots() {
-        return new ArrayList<>(selectedTimeSlots);
-    }
-    
-    public void clearSelection() {
-        selectedTimeSlots.clear();
-    }
-    
-    public int getAvailableTimeSlotsCount(int courtId, LocalDate date) {
-        List<TimeSlot> allTimeSlots = getAllTimeSlots();
-        List<Integer> bookedIds = getBookedTimeSlotIds(courtId, date);
-        
-        return (int) allTimeSlots.stream()
-            .filter(ts -> !bookedIds.contains(ts.getId()))
-            .count();
-    }
-
-    public int calculateTotalPrice(int pricePerHour) {
-        return selectedTimeSlots.size() * pricePerHour;
-    }
-    
+    // method untuk membuat court baru
     public boolean createCourt(String name, Integer price, String status){
         return courtDAO.createCourt(name, price, status);
     }
     
+    // method untuk menyimpan perubahan data court
     public boolean editCourt(Integer id, String name, Integer price, String status){
         return courtDAO.editCourt(id, name, price, status);
     }
     
+    // method untuk menghapus data court
     public boolean deleteCourt(Integer id){
         return courtDAO.deleteCourt(id);
     }
