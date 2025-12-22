@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class TimeSlotDAO {
     
+    // method untuk mengambil semua data timeslot yang ada
     public List<TimeSlot> getAllTimeSlots() {
         List<TimeSlot> timeSlots = new ArrayList<>();
         String sql = "SELECT * FROM time_slots";
@@ -45,9 +46,7 @@ public class TimeSlotDAO {
         return timeSlots;
     }
     
-    /**
-     * Get time slot by ID
-     */
+    // method untuk mengambil data timeslot yang ada berdasarkan id spesifik
     public TimeSlot getTimeSlotById(int id) {
         TimeSlot timeSlot = null;
         String sql = "SELECT * FROM time_slots WHERE id = ?";
@@ -78,6 +77,7 @@ public class TimeSlotDAO {
         return timeSlot;
     }
     
+    // method untuk membuat timeslot baru
     public boolean createTimeSlot(String startTime, String endTime) {
         String sql = "INSERT INTO time_slots (start_time, end_time) VALUES (?, ?)";
 
@@ -99,6 +99,7 @@ public class TimeSlotDAO {
         return false;
     }
     
+    // method untuk mengedit data timeslot berdasarkan id spesifik
     public boolean editTimeSlot(Integer id, String startTime, String endTime) {
         String sql = "UPDATE time_slots SET start_time = ?, end_time = ? WHERE id = ?";
         System.out.println("Time Start" + startTime + " on id : " + id);
@@ -122,6 +123,7 @@ public class TimeSlotDAO {
         return false;
     }
     
+    // method untuk menghapus data timeslot
     public boolean deleteTimeSlot(Integer id) {
         String sql = "DELETE FROM time_slots WHERE id = ?";
 
