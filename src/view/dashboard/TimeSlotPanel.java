@@ -319,10 +319,6 @@ public class TimeSlotPanel extends javax.swing.JPanel {
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        coverCard = new javax.swing.JPanel();
-        timeCard = new javax.swing.JLabel();
-        deleteButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         inputStartTime = new javax.swing.JTextField();
         inputEndTime = new javax.swing.JTextField();
@@ -451,25 +447,6 @@ public class TimeSlotPanel extends javax.swing.JPanel {
         jLabel8.setText("Kelola data waktu booking disini");
         header.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        coverCard.setBackground(new java.awt.Color(249, 249, 249));
-        coverCard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        timeCard.setFont(new java.awt.Font("Heiti SC", 0, 20)); // NOI18N
-        timeCard.setText("09:00 - 10:00");
-        coverCard.add(timeCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
-
-        deleteButton.setBackground(new java.awt.Color(249, 249, 249));
-        deleteButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/delete 6.png"))); // NOI18N
-        deleteButton.setBorder(null);
-        coverCard.add(deleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 25, -1, -1));
-
-        editButton.setBackground(new java.awt.Color(249, 249, 249));
-        editButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/edit fix.png"))); // NOI18N
-        editButton.setBorder(null);
-        coverCard.add(editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 25, -1, -1));
-
-        header.add(coverCard, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 550, 80));
-
         add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 1060, 110));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -588,9 +565,6 @@ public class TimeSlotPanel extends javax.swing.JPanel {
     private javax.swing.JPanel SidebarLogoSeperator;
     private javax.swing.JButton buttonBackToAdd;
     private javax.swing.JButton buttonCreate;
-    private javax.swing.JPanel coverCard;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JButton editButton;
     private javax.swing.JPanel header;
     private javax.swing.JTextField inputEndTime;
     private javax.swing.JTextField inputStartTime;
@@ -611,7 +585,6 @@ public class TimeSlotPanel extends javax.swing.JPanel {
     private javax.swing.JButton sidebarUsersButton2;
     private javax.swing.JButton sidebarUsersButton3;
     private javax.swing.JButton sidebarUsersButton4;
-    private javax.swing.JLabel timeCard;
     private javax.swing.JLabel titleManageCourt;
     // End of variables declaration//GEN-END:variables
 }
