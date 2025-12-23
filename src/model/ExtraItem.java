@@ -39,4 +39,9 @@ public abstract class ExtraItem implements OrderItem{
     public int getSubtotal() {
         return price * quantity;
     }
+    
+    @Override
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
 }

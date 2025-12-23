@@ -58,6 +58,8 @@ public class CourtDetailPanel extends javax.swing.JPanel {
         labelOrders.setText("");
         timeSlotButtons.clear();
         selectedSlots.clear();
+        
+        labelTotal.setText("Rp 0.000");
 
         courtDetailTitle.setText("Lapangan " + selectedCourt.getName());
         jLabel5.setText(DateUtils.formatIndonesian(selectedDate));

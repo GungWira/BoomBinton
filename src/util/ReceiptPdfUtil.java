@@ -85,7 +85,7 @@ public class ReceiptPdfUtil {
             y -= 20;
 
             // ========== TOTAL ==========
-            int total = slots.size() * court.getPrice_per_hour();
+            int total = slots.size() * court.getPrice_per_hour() + (racket.getPrice() * racket.getQuantity()) + (kok.getPrice() * kok.getQuantity());
             y = drawTotal(cs, y, slots.size(), total);
             y -= 25;
 
@@ -106,7 +106,7 @@ public class ReceiptPdfUtil {
             // Tampilkan dialog sukses
             JOptionPane.showMessageDialog(
                     null,
-                    "Struk berhasil disimpan!\n\nFile: " + filename + "\n\nTotal: Rp " + formatRupiah(total + racket.getSubtotal() + kok.getSubtotal()),
+                    "Struk berhasil disimpan!\n\nFile: " + filename + "\n\nTotal: Rp " + formatRupiah(total),
                     "✅ Pembayaran Berhasil",
                     JOptionPane.INFORMATION_MESSAGE
             );

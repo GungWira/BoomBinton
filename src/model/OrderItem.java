@@ -15,5 +15,6 @@ public interface OrderItem {
     int getPrice();
     int getQuantity();
     int getSubtotal();
+    void setQuantity(int quantity);
 
 }

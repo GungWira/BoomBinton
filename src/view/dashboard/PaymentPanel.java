@@ -616,6 +616,21 @@ public class PaymentPanel extends javax.swing.JPanel {
                 kok,
                 currentPoints
         );
+        nameInput.setText("");
+        phoneInput.setText("");
+        
+        racketAmountVar = 0;
+        racketAmount.setText(racketAmountVar.toString());
+        kokAmountVar = 0;
+        kokAmount.setText(kokAmountVar.toString());
+        updateOrder();
+        
+        grandTotalPrice.setText("Rp 0.000");
+        totalOrder = 0;
+        
+        racket.setQuantity(0);
+        kok.setQuantity(0);
+        
         dashboardFrame.showCourtPanel();
     }//GEN-LAST:event_confirmButtonActionPerformed
 

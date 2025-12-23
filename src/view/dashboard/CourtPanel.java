@@ -333,6 +333,7 @@ public class CourtPanel extends javax.swing.JPanel {
 
     private void sidebarUsersButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sidebarUsersButton3ActionPerformed
         // TODO add your handling code here:
+        dashboardFrame.showHistoryPanel();
     }//GEN-LAST:event_sidebarUsersButton3ActionPerformed
 
 
